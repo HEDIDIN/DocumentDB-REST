@@ -12,4 +12,3 @@ The **DocumentDBConnector.cs** is the base class.
 
 The **DocumentDbAccount** public property is required. This is the same value as **YourDocumentDBAccount**
 
-[LICENSE](./LICENSE)
