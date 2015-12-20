@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="DocumentDBRestApi" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Workspaces\\Fhir\.Dstu2\.Server\\DocumentDBRestApi\\obj\\Debug\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Workspaces\\Fhir\.Dstu2\.Server\\DocumentDBRestApi\\obj\\Debug\\Package\\PackageTmp$" />
+  </parameter>
+</parameters>
