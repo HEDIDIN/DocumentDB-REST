@@ -1,3 +1,5 @@
+Copyright © 2015, Howard S. Edidin
+
 ## DocumentDB-REST
 # REST API for DocumentDB
 
