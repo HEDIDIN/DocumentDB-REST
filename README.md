@@ -75,7 +75,7 @@ The flowing operations are currently working:
 ## Configure Swagger ##
 
 You will need to modify `YourDocumentDBAccount.documents.azure.com:443` in the Swagger file
-Replace `YourDocumentDBAccount` with your account name
+Replace `YourDocumentDBAccount` with your *DocumentDB Account Name*
 
 ## Usage ##
 
