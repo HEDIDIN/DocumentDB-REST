@@ -3,7 +3,7 @@ Copyright © 2015, Howard S. Edidin
 ## DocumentDB-REST
 # REST API for DocumentDB #
 
-## Configure Swaggwer ##
+## Configure Swagger ##
 
 ```
 You will need to modify `YourDocumentDBAccount`.documents.azure.com:443 in the Swagger file
@@ -21,6 +21,7 @@ The **DocumentDBConnector.cs** is the base class.
 The **DocumentDbAccount** public property is required. This is the same value as **YourDocumentDBAccount**
 ```
 
+## Contributing to DocumentDB-REST ##
 
 
 [LICENSE](./LICENSE)
