@@ -90,7 +90,7 @@ The **DocumentDbAccount** public property is required. This is the same value as
 
 ## Changelog ##
 
-* 
+* 1.0.0 - 2015-12-14 - Initial Release
 
 ## Contributing to DocumentDB-REST ##
 
