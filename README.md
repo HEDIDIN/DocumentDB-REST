@@ -6,7 +6,7 @@ Copyright © 2015, Howard S. Edidin
 Microsoft Azure's DocumentDB is a great PaaS NoSQL database.  It supports Stored Procedures, User Defined Functions (UDF) and Triggers. A REST API is directly available, but a API Connector is not available.  This project started off as an API Connector. 
 
 I started off trying to duplicate all the DocumentDB published REST API in Swagger. I used SwaggerHub to author the Swagger JSON file.
-I then using the **Add REST API** function in VS 2015 to generate the code for my API Application. 
+I then used the **Add REST API** function in VS 2015 to generate the code for my API Application. 
 
 ## Source code ##
 * [Source Repository](https://github.com/HEDIDIN/DocumentDB-REST/tree/master/DocumentDBRestApi)
