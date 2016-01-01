@@ -9,7 +9,7 @@ I started off trying to duplicate all the DocumentDB published REST API in Swagg
 I then using the **Add REST API** function in VS 2015 to generate the code for my API Application. 
 
 ## Source code ##
-* [Source Repository](https://github.com/hedidin/DocumentDB-REST)
+* [Source Repository](https://github.com/HEDIDIN/DocumentDB-REST/tree/master/DocumentDBRestApi)
 
 
 ### Working ###
@@ -90,6 +90,7 @@ The `DocumentDbAccount` public property is required. This is the same value as `
 ## Changelog ##
 
 * 1.0.0 - 2015-12-14 - Initial Release
+* 1.0.1 - 2016-01-01 - Reviewed Documentation
 
 ## Contributing to DocumentDB-REST ##
 
