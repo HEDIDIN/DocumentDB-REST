@@ -70,6 +70,7 @@ The flowing operations are currently working:
 * Enumeration of stored procedures to select from for Execute a stored procedure. 
   This should be a drop down list on the API Docs
 * Security for accessing the API
+* Query a Resource
 
 
 ## Configure Swagger ##
@@ -91,6 +92,7 @@ The `DocumentDbAccount` public property is required. This is the same value as `
 
 * 1.0.0 - 2015-12-14 - Initial Release
 * 1.0.1 - 2016-01-01 - Reviewed Documentation
+* 1.0.2 - 2016-02-2016 - Added Query a Resource to the Unimplemented list
 
 ## Contributing to DocumentDB-REST ##
 
