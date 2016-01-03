@@ -1,4 +1,4 @@
-Copyright © 2015, Howard S. Edidin
+Copyright © 2016, Howard S. Edidin
 
 
 # DocumentDB-REST #
@@ -48,6 +48,8 @@ The flowing operations are currently working:
 * Execute a stored procedure
 * Query a UDF
 * Query a Trigger
+* Query a Collection Resource
+* Query a Document Resource
 
 
 ### Unimplemented ###
@@ -70,7 +72,7 @@ The flowing operations are currently working:
 * Enumeration of stored procedures to select from for Execute a stored procedure. 
   This should be a drop down list on the API Docs
 * Security for accessing the API
-* Query a Resource
+
 
 
 ## Configure Swagger ##
@@ -92,7 +94,9 @@ The `DocumentDbAccount` public property is required. This is the same value as `
 
 * 1.0.0 - 2015-12-14 - Initial Release
 * 1.0.1 - 2016-01-01 - Reviewed Documentation
-* 1.0.2 - 2016-02-2016 - Added Query a Resource to the Unimplemented list
+* 1.0.2 - 2016-02-01 - Added Query a Resource to the Unimplemented list
+* 1.0.3 - 2016-03-01 - Added Query Collection Resource and Query Document Resource; Added details to Operation Descriptions including links to external documentation
+
 
 ## Contributing to DocumentDB-REST ##
 
