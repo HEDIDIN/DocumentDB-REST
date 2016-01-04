@@ -51,6 +51,7 @@ The flowing operations are currently working:
 * Query a Trigger
 * Query a Collection Resource
 * Query a Document Resource
+* List stored procedures
 
 
 ### Unimplemented ###
@@ -67,14 +68,14 @@ The flowing operations are currently working:
 * List attachments
 * Delete attachments
 * Replace a stored procedure
-* List stored procedures
 * Delete a stored procedure
 * Query stored procedures
-* Enumeration of stored procedures to select from for Execute a stored procedure. 
-  This should be a drop down list on the API Docs
 * Security for accessing the API
 
+### Future Functionality ###
 
+* Enumeration of stored procedures to select from for Execute a stored procedure. 
+   * This should be a drop down list on the API Docs
 
 ## Configure Swagger ##
 
@@ -101,7 +102,7 @@ The `DocumentDbAccount` public property is required. This is the same value as `
 
 ## Contributing to DocumentDB-REST ##
 
-I am willing to accept pull requests that implement any any unimplemented functionality listed as "Unimplemented" above.
+I am willing to accept pull requests that implements any unimplemented functionality listed as "Unimplemented" above.
 I would also like to hear any feedback for people using it.
 
 
