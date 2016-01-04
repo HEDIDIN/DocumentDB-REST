@@ -9,8 +9,8 @@ I started off trying to duplicate all the DocumentDB published REST API in Swagg
 I then used the **Add REST API** function in VS 2015 to generate the code for my API Application. 
 
 ## Source code ##
+* [Swagger](https://github.com/HEDIDIN/DocumentDB-REST/blob/master/HEDIDIN-DocumentDBConnector-1.0.6-swagger.json)
 * [Source Repository](https://github.com/HEDIDIN/DocumentDB-REST/tree/master/DocumentDBRestApi)
-* [Swagger]()
 
 
 ### Working ###
@@ -96,7 +96,7 @@ The `DocumentDbAccount` public property is required. This is the same value as `
 * 1.0.0 - 2015-12-14 - Initial Release
 * 1.0.1 - 2016-01-01 - Reviewed Documentation
 * 1.0.2 - 2016-02-01 - Added Query a Resource to the Unimplemented list
-* 1.0.3 - 2016-03-01 - Added Query Collection Resource and Query Document Resource; Added details to Operation Descriptions including links to external documentation to the Swagger. 
+* 1.0.3 - 2016-03-01 - Added Query Collection Resource and Query Document Resource; Added details to Operation Descriptions including links to external documentation to the Swagger. Source code has not been updated
 
 
 ## Contributing to DocumentDB-REST ##
