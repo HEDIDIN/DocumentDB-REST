@@ -13,8 +13,7 @@ I then used the **Add REST API** function in VS 2015 to generate the code for my
 * [Source Repository](https://github.com/HEDIDIN/DocumentDB-REST/tree/master/DocumentDBRestApi)
 
 ## Documentation
-
-You can view all the Operations on my Wiki 
+You can view all the [Operations on my Wiki](https://github.com/HEDIDIN/DocumentDB-REST/wiki)
 
 
 ### Working ###
