@@ -12,6 +12,10 @@ I then used the **Add REST API** function in VS 2015 to generate the code for my
 * [Swagger](https://github.com/HEDIDIN/DocumentDB-REST/blob/master/HEDIDIN-DocumentDBConnector-1.0.6-swagger.json)
 * [Source Repository](https://github.com/HEDIDIN/DocumentDB-REST/tree/master/DocumentDBRestApi)
 
+## Documentation
+
+You can view all the Operations on my Wiki 
+
 
 ### Working ###
 
