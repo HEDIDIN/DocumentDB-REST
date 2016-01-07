@@ -12,21 +12,15 @@ namespace DocumentDBRestApi.Models
     public class QuerySql
     {
         /// <summary>
-        /// Required. The value of this property the SQL statement to be
-        /// executed.
-        /// </summary>
-        public string Query { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the QuerySql class.
+        ///     Initializes a new instance of the QuerySql class.
         /// </summary>
         public QuerySql()
         {
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the QuerySql class with required
-        /// arguments.
+        ///     Initializes a new instance of the QuerySql class with required
+        ///     arguments.
         /// </summary>
         public QuerySql(string query)
             : this()
@@ -37,12 +31,18 @@ namespace DocumentDBRestApi.Models
             }
             Query = query;
         }
-        
+
         /// <summary>
-        /// Serialize the object
+        ///     Required. The value of this property the SQL statement to be
+        ///     executed.
+        /// </summary>
+        public string Query { get; set; }
+
+        /// <summary>
+        ///     Serialize the object
         /// </summary>
         /// <returns>
-        /// Returns the json model for the type QuerySql
+        ///     Returns the json model for the type QuerySql
         /// </returns>
         public virtual JToken SerializeJson(JToken outputObject)
         {

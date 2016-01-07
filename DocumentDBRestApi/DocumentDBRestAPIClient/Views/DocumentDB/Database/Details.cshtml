@@ -1,0 +1,67 @@
+﻿@model DocumentDBRestAPIClient.Models.Database
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Database Details</h2>
+
+<div>
+    <h4>Database</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Colls)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colls)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Etag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Self)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Self)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Users)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

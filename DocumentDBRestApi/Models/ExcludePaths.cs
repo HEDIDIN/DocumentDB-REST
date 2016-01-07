@@ -12,21 +12,15 @@ namespace DocumentDBRestApi.Models
     public class ExcludePaths
     {
         /// <summary>
-        /// Required. The accepted value is a valid document path including
-        /// wildcards values of ? and *.
-        /// </summary>
-        public string Path { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the ExcludePaths class.
+        ///     Initializes a new instance of the ExcludePaths class.
         /// </summary>
         public ExcludePaths()
         {
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the ExcludePaths class with required
-        /// arguments.
+        ///     Initializes a new instance of the ExcludePaths class with required
+        ///     arguments.
         /// </summary>
         public ExcludePaths(string path)
             : this()
@@ -37,17 +31,25 @@ namespace DocumentDBRestApi.Models
             }
             Path = path;
         }
-        
+
         /// <summary>
-        /// Deserialize the object
+        ///     Required. The accepted value is a valid document path including
+        ///     wildcards values of ? and *.
+        /// </summary>
+        public string Path { get; set; }
+
+        /// <summary>
+        ///     Deserialize the object
         /// </summary>
         public virtual void DeserializeJson(JToken inputObject)
         {
-            if (inputObject == null || inputObject.Type == JTokenType.Null) return;
-            var pathValue = inputObject["Path"];
-            if (pathValue != null && pathValue.Type != JTokenType.Null)
+            if (inputObject != null && inputObject.Type != JTokenType.Null)
             {
-                Path = ((string)pathValue);
+                var pathValue = inputObject["Path"];
+                if (pathValue != null && pathValue.Type != JTokenType.Null)
+                {
+                    Path = (string) pathValue;
+                }
             }
         }
     }

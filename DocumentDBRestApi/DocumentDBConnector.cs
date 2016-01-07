@@ -17,34 +17,26 @@ using Newtonsoft.Json.Linq;
 namespace DocumentDBRestApi
 {
     /// <summary>
-    /// 
     /// </summary>
     public class DocumentDbConnector : ServiceClient<DocumentDbConnector>, IDocumentDbConnector
     {
-
         /// <summary>
-        /// The DocumentDB Account Name
-        /// </summary>
-        public string DocumentDbAccount { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the DocumentDbConnector class.
+        ///     Initializes a new instance of the DocumentDbConnector class.
         /// </summary>
         public DocumentDbConnector()
         {
-           
             var account = $"https://{DocumentDbAccount}documents.azure.com:443/dbs";
             BaseUri = new Uri(account);
         }
 
         /// <summary>
-        /// Initializes a new instance of the DocumentDbConnector class.
+        ///     Initializes a new instance of the DocumentDbConnector class.
         /// </summary>
         /// <param name='handlers'>
-        /// Optional. The set of delegating handlers to insert in the http
-        /// client pipeline.
+        ///     Optional. The set of delegating handlers to insert in the http
+        ///     client pipeline.
         /// </param>
-        public DocumentDbConnector( params DelegatingHandler[] handlers)
+        public DocumentDbConnector(params DelegatingHandler[] handlers)
             : base(handlers)
         {
             var account = $"https://{DocumentDbAccount}documents.azure.com:443/dbs";
@@ -52,32 +44,31 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Initializes a new instance of the DocumentDbConnector class.
+        ///     Initializes a new instance of the DocumentDbConnector class.
         /// </summary>
         /// <param name='rootHandler'>
-        /// Optional. The http client handler used to handle http transport.
+        ///     Optional. The http client handler used to handle http transport.
         /// </param>
         /// <param name='handlers'>
-        /// Optional. The set of delegating handlers to insert in the http
-        /// client pipeline.
+        ///     Optional. The set of delegating handlers to insert in the http
+        ///     client pipeline.
         /// </param>
-        public DocumentDbConnector( HttpClientHandler rootHandler, params DelegatingHandler[] handlers)
+        public DocumentDbConnector(HttpClientHandler rootHandler, params DelegatingHandler[] handlers)
             : base(rootHandler, handlers)
         {
-
             var account = $"https://{DocumentDbAccount}documents.azure.com:443/dbs";
             BaseUri = new Uri(account);
         }
 
         /// <summary>
-        /// Initializes a new instance of the DocumentDbConnector class.
+        ///     Initializes a new instance of the DocumentDbConnector class.
         /// </summary>
         /// <param name='baseUri'>
-        /// Optional. The base URI of the service.
+        ///     Optional. The base URI of the service.
         /// </param>
         /// <param name='handlers'>
-        /// Optional. The set of delegating handlers to insert in the http
-        /// client pipeline.
+        ///     Optional. The set of delegating handlers to insert in the http
+        ///     client pipeline.
         /// </param>
         public DocumentDbConnector(Uri baseUri, params DelegatingHandler[] handlers)
             : this(handlers)
@@ -88,14 +79,14 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Initializes a new instance of the DocumentDbConnector class.
+        ///     Initializes a new instance of the DocumentDbConnector class.
         /// </summary>
         /// <param name='credentials'>
-        /// Required. Credentials for authenticating with the service.
+        ///     Required. Credentials for authenticating with the service.
         /// </param>
         /// <param name='handlers'>
-        /// Optional. The set of delegating handlers to insert in the http
-        /// client pipeline.
+        ///     Optional. The set of delegating handlers to insert in the http
+        ///     client pipeline.
         /// </param>
         public DocumentDbConnector(ServiceClientCredentials credentials, params DelegatingHandler[] handlers)
             : this(handlers)
@@ -108,19 +99,20 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Initializes a new instance of the DocumentDbConnector class.
+        ///     Initializes a new instance of the DocumentDbConnector class.
         /// </summary>
         /// <param name='baseUri'>
-        /// Optional. The base URI of the service.
+        ///     Optional. The base URI of the service.
         /// </param>
         /// <param name='credentials'>
-        /// Required. Credentials for authenticating with the service.
+        ///     Required. Credentials for authenticating with the service.
         /// </param>
         /// <param name='handlers'>
-        /// Optional. The set of delegating handlers to insert in the http
-        /// client pipeline.
+        ///     Optional. The set of delegating handlers to insert in the http
+        ///     client pipeline.
         /// </param>
-        public DocumentDbConnector(Uri baseUri, ServiceClientCredentials credentials, params DelegatingHandler[] handlers)
+        public DocumentDbConnector(Uri baseUri, ServiceClientCredentials credentials,
+            params DelegatingHandler[] handlers)
             : this(handlers)
         {
             if (baseUri == null)
@@ -137,43 +129,100 @@ namespace DocumentDBRestApi
             Credentials?.InitializeServiceClient(this);
         }
 
-
         /// <summary>
-        /// Create an Attachment
+        ///     Get an Attachment from document
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='ridDoc'>
-        /// Required. The Document Id
+        ///     Required. The Document Id
         /// </param>
-        /// <param name='request'>
-        /// Required.
+        /// <param name='ridAttch'>
+        ///     Required. The Attachment Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}..
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
+        ///     .
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.           example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.           example -
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<AttachmentResponse>> CreateAttachementWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, AttachmentRaw request, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        Task<HttpOperationResponse<AttachmentRaw>> IDocumentDbConnector.GetAttachementWithOperationResponseAsync(
+            string ridDB, string ridColl, string ridDoc, string ridAttch,
+            string authorization, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken)
+        {
+            return GetAttachementWithOperationResponseAsync(ridDB, ridColl, ridDoc, ridAttch, authorization, userAgent,
+                xMSDate, xMSVersion, cancellationToken);
+        }
+
+
+        /// <summary>
+        ///     Create an Attachment
+        /// </summary>
+        /// <param name='ridDB'>
+        ///     Required. The Database Id
+        /// </param>
+        /// <param name='ridColl'>
+        ///     Required. The Collection Id
+        /// </param>
+        /// <param name='ridDoc'>
+        ///     Required. The Document Id
+        /// </param>
+        /// <param name='request'>
+        ///     Required.
+        /// </param>
+        /// <param name='authorization'>
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
+        /// </param>
+        /// <param name='userAgent'>
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
+        /// </param>
+        /// <param name='xMSDate'>
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
+        /// </param>
+        /// <param name='xMSVersion'>
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
+        /// </param>
+        /// <param name='cancellationToken'>
+        ///     Cancellation token.
+        /// </param>
+        public async Task<HttpOperationResponse<AttachmentResponse>> CreateAttachementWithOperationResponseAsync(
+            string ridDB, string ridColl, string ridDoc, AttachmentRaw request, string authorization, string userAgent,
+            string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -215,17 +264,15 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"ridColl", ridColl},
-                    {"ridDoc", ridDoc},
-                    {"request", request},
-                    {"authorization", authorization},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridColl", ridColl);
+                tracingParameters.Add("ridDoc", ridDoc);
+                tracingParameters.Add("request", request);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "CreateAttachementAsync", tracingParameters);
             }
 
@@ -252,11 +299,9 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Post;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
@@ -291,23 +336,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.Conflict && statusCode != HttpStatusCode.RequestEntityTooLarge)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.Conflict && statusCode != HttpStatusCode.RequestEntityTooLarge)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -317,11 +354,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<AttachmentResponse>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<AttachmentResponse>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -346,33 +381,42 @@ namespace DocumentDBRestApi
             return result;
         }
 
+
+
         /// <summary>
-        /// Create a new Collection
+        ///     Create a new Collection
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example - Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example -
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='id'>
-        /// Required. This is a user settable property. It is the unique name
-        /// that identifies the collection
+        ///     Required. This is a user settable property. It is the unique name
+        ///     that identifies the collection
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Collection>> CreateCollectionWithOperationResponseAsync(string ridDB, string authorization, string xMSDate, string xMSVersion, CustomBodyCollection id, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Collection>> CreateCollectionWithOperationResponseAsync(string ridDB,
+            string authorization, string xMSDate, string xMSVersion, CustomBodyCollection id,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -402,14 +446,12 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"authorization", authorization},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion},
-                    {"id", id}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
+                tracingParameters.Add("id", id);
                 ServiceClientTracing.Enter(invocationId, this, "CreateCollectionAsync", tracingParameters);
             }
 
@@ -432,11 +474,9 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Post;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
@@ -470,24 +510,17 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
+
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);
@@ -526,25 +559,32 @@ namespace DocumentDBRestApi
         }
 
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation.
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. For creating a database, the Content-Type header must be
-        /// `application/json`.
+        ///     Required. For creating a database, the Content-Type header must be
+        ///     `<c>application/json</c>`.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.  `Fri, 08 Apr 2015 03:52:31 GMT`
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015
+        ///         03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='id'>
-        /// Required. This is a user settable property. It is the unique name
-        /// that identifies the collection
+        ///     Required. This is a user settable property. It is the unique name
+        ///     that identifies the collection
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Database>> CreateDatabaseWithOperationResponseAsync(string authorization, string contentType, string xMSDate, CustomBodyCollection id, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Database>> CreateDatabaseWithOperationResponseAsync(
+            string authorization, string contentType, string xMSDate, CustomBodyCollection id,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (authorization == null)
@@ -615,6 +655,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = id.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -634,23 +675,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.Created && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.Conflict)
+            if (statusCode != HttpStatusCode.Created && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.Conflict)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -690,37 +723,45 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Create a new Document
+        ///     Create a new Document
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015
+        ///         03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Document>> CreateDocumentWithOperationResponseAsync(string ridDB, string ridColl, CustomBody request, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Document>> CreateDocumentWithOperationResponseAsync(string ridDB,
+            string ridColl, CustomBody request, string authorization, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -812,6 +853,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -831,23 +873,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -887,39 +921,42 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Create a User
+        ///     Create a User
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request..
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request..
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<User>> CreateUserWithOperationResponseAsync(string ridDB, User request, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<User>> CreateUserWithOperationResponseAsync(string ridDB, User request,
+            string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -1009,6 +1046,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -1028,23 +1066,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.Created && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.Conflict)
+            if (statusCode != HttpStatusCode.Created && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.Conflict)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -1084,35 +1114,43 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Delete a Collection
+        ///     Delete a Collection
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.           example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<object>> DeleteCollectionWithOperationResponseAsync(string ridDB, string ridColl, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> DeleteCollectionWithOperationResponseAsync(string ridDB,
+            string ridColl, string authorization, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -1211,9 +1249,10 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.NoContent && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.NoContent && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
             {
-                var ex = new HttpOperationException()
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
@@ -1230,46 +1269,57 @@ namespace DocumentDBRestApi
             var result = new HttpOperationResponse<object>
             {
                 Request = httpRequest,
-                Response = httpResponse
+                Response = httpResponse,
+                Body = null
             };
 
             // Deserialize Response
-            var resultModel = default(object);
-            if (resultModel == null) throw new ArgumentNullException(nameof(resultModel));
+
+            if (shouldTrace)
+            {
+                ServiceClientTracing.Exit(invocationId, result);
+            }
             return result;
         }
 
         /// <summary>
-        /// Delete a Database
+        ///     Delete a Database
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation.
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>{user agent name}/{version}</c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.           Example, Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<object>> DeleteDatabaseWithOperationResponseAsync(string ridDB, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> DeleteDatabaseWithOperationResponseAsync(string ridDB,
+            string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -1366,9 +1416,10 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.NoContent && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.NoContent && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
             {
-                var ex = new HttpOperationException()
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
@@ -1391,6 +1442,7 @@ namespace DocumentDBRestApi
 
             // Deserialize Response
 
+
             if (shouldTrace)
             {
                 ServiceClientTracing.Exit(invocationId, result);
@@ -1399,37 +1451,44 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Delete a Document
+        ///     Delete a Document
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='ridDoc'>
-        /// Required. The Document Id
+        ///     Required. The Document Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this
+        ///     operation.<c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015
+        ///         03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<object>> DeleteDocumentWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> DeleteDocumentWithOperationResponseAsync(string ridDB,
+            string ridColl, string ridDoc, string authorization, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -1535,9 +1594,10 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.NoContent && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.NoContent && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
             {
-                var ex = new HttpOperationException()
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
@@ -1554,11 +1614,12 @@ namespace DocumentDBRestApi
             var result = new HttpOperationResponse<object>
             {
                 Request = httpRequest,
-                Response = httpResponse,
-                Body = null
+                Response = httpResponse
             };
 
             // Deserialize Response
+
+            result.Body = null;
 
             if (shouldTrace)
             {
@@ -1566,48 +1627,55 @@ namespace DocumentDBRestApi
             }
             return result;
         }
-#pragma warning restore 1570
 
         /// <summary>
-        /// To delete a permission resource, perform a DELETE operation on that
-        /// permission resource
+        ///     To delete a permission resource, perform a DELETE operation on that
+        ///     permission resource
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridPerm'>
-        /// Required. The Permission Id
+        ///     Required. The Permission Id
         /// </param>
         /// <param name='ridUser'>
-        /// Required. The User Id
+        ///     Required. The User Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation.
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example:
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<object>> DeletePermissionWithOperationResponseAsync(string ridDB, string ridPerm, string ridUser, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> DeletePermissionWithOperationResponseAsync(string ridDB,
+            string ridPerm, string ridUser, string authorization, string contentType, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -1718,9 +1786,10 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.NoContent && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.NoContent && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
             {
-                var ex = new HttpOperationException()
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
@@ -1737,12 +1806,12 @@ namespace DocumentDBRestApi
             var result = new HttpOperationResponse<object>
             {
                 Request = httpRequest,
-                Response = httpResponse,
-                Body = null
+                Response = httpResponse
             };
 
             // Deserialize Response
 
+            result.Body = null;
 
             if (shouldTrace)
             {
@@ -1750,44 +1819,48 @@ namespace DocumentDBRestApi
             }
             return result;
         }
-#pragma warning restore 1570
 
         /// <summary>
-        /// Delete a User
+        ///     Delete a User
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridUser'>
-        /// Required. The User Id
+        ///     Required. The User Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation. example:
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.          example -
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<object>> DeleteUserWithOperationResponseAsync(string ridDB, string ridUser, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> DeleteUserWithOperationResponseAsync(string ridDB,
+            string ridUser, string authorization, string contentType, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -1890,24 +1963,15 @@ namespace DocumentDBRestApi
             }
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
-            var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden)
+            await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -1920,11 +1984,12 @@ namespace DocumentDBRestApi
             var result = new HttpOperationResponse<object>
             {
                 Request = httpRequest,
-                Response = httpResponse,
-                Body = null
+                Response = httpResponse
             };
 
             // Deserialize Response
+
+            result.Body = null;
 
             if (shouldTrace)
             {
@@ -1934,51 +1999,59 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Execute a Stored Procedure
+        ///     Execute a Stored Procedure
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='ridProc'>
-        /// Required. The Procedure Id
+        ///     Required. The Procedure Id
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Required. The Content-Type header must be
-        /// application/json.
+        ///     Required. Required. The Content-Type header must be
+        ///     application/json.
         /// </param>
         /// <param name='xMSDocumentdbQueryEnableScan'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='xMSDocumentdbIsquery'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - : Fri, 08
-        /// Apr 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.          example - :
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<QueryResponseBody>> ExecuteStoredProcedureWithOperationResponseAsync(string ridDB, string ridColl, string ridProc, QueryRequest request, string authorization, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<QueryResponseBody>> ExecuteStoredProcedureWithOperationResponseAsync(
+            string ridDB, string ridColl, string ridProc, QueryRequest request, string authorization, string contentType,
+            bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -2074,7 +2147,8 @@ namespace DocumentDBRestApi
             httpRequest.Headers.Add("User-Agent", userAgent);
             httpRequest.Headers.Add("x-ms-date", xMSDate);
             httpRequest.Headers.Add("x-ms-documentdb-isquery", xMSDocumentdbIsquery.ToString().ToLower());
-            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan", xMSDocumentdbQueryEnableScan.ToString().ToLower());
+            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan",
+                xMSDocumentdbQueryEnableScan.ToString().ToLower());
             httpRequest.Headers.Add("x-ms-version", xMSVersion);
 
             // Set Credentials
@@ -2085,6 +2159,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -2106,21 +2181,11 @@ namespace DocumentDBRestApi
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -2160,41 +2225,49 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Get an Attachment from document
+        ///     Get an Attachment from document
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='ridDoc'>
-        /// Required. The Document Id
+        ///     Required. The Document Id
         /// </param>
         /// <param name='ridAttch'>
-        /// Required. The Attachment Id
+        ///     Required. The Attachment Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}..
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
+        ///     .
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.           example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.           example -
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<AttachmentRaw>> GetAttachementWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, string ridAttch, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<AttachmentRaw>> GetAttachementWithOperationResponseAsync(string ridDB,
+            string ridColl, string ridDoc, string ridAttch, string authorization, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -2307,23 +2380,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.Conflict && statusCode != HttpStatusCode.RequestEntityTooLarge)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.Conflict && statusCode != HttpStatusCode.RequestEntityTooLarge)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -2363,35 +2428,47 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Get a Collection
+        ///     Get a Collection
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
+        ///     .
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.  example - Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.  example -
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Collection>> GetCollectionByIdWithOperationResponseAsync(string ridDB, string ridColl, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Collection>> GetCollectionByIdWithOperationResponseAsync(string ridDB,
+            string ridColl, string authorization, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -2490,23 +2567,14 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -2527,7 +2595,7 @@ namespace DocumentDBRestApi
             {
                 var resultModel = new Collection();
                 JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
+                if (!string.IsNullOrEmpty(responseContent))
                 {
                     responseDoc = JToken.Parse(responseContent);
                 }
@@ -2546,38 +2614,51 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Retrieve a database resource by Id
+        ///     Retrieve a database resource by Id
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be `application/json`.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be `application/json`.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is `{user agent name}/{version}`.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
+        ///     .
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.`Fri, 08 Apr 2015 03:52:31 GMT`
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015
+        ///         03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use `2015-08-06`
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='xMSGatewayversion'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Database>> GetDatabaseByIdWithOperationResponseAsync(string ridDB, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, string xMSGatewayversion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Database>> GetDatabaseByIdWithOperationResponseAsync(string ridDB,
+            string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion,
+            string xMSGatewayversion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -2680,23 +2761,14 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -2736,31 +2808,40 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// List Databases
+        ///     List Databases
         /// </summary>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation.
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is `{user agent name}/{version}`.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is `
+        ///     <c>
+        ///         >{user agent
+        ///         name}/{version}
+        ///     </c>
+        ///     `.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.  `Fri, 08 Apr 2015 03:52:31 GMT`
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.  `Fri, 08 Apr 2015 03:52:31 GMT`
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use `2015-08-06`
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='xMSGatewayversion'>
-        /// Required. The Microsft Date Gateway version
+        ///     Required. The Microsft Date Gateway version
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<IList<DatabaseCollection>>> GetDatabaseListWithOperationResponseAsync(string authorization, string userAgent, string xMSDate, string xMSVersion, string xMSGatewayversion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<DatabaseCollection>>> GetDatabaseListWithOperationResponseAsync(
+            string authorization, string userAgent, string xMSDate, string xMSVersion, string xMSGatewayversion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (authorization == null)
@@ -2852,23 +2933,14 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -2908,33 +2980,41 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Get a Document.
+        ///     Get a Document.
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='ridDoc'>
-        /// Required. The Document Id
+        ///     Required. The Document Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015
+        ///         03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Document>> GetDocumentByIdWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, string authorization, string userAgent, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Document>> GetDocumentByIdWithOperationResponseAsync(string ridDB,
+            string ridColl, string ridDoc, string authorization, string userAgent, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -3034,23 +3114,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -3089,244 +3161,66 @@ namespace DocumentDBRestApi
             return result;
         }
 
-    
-
-        /// <summary>
-        /// Get a User
-        /// </summary>
-        /// <param name='ridDB'>
-        /// Required. The Database Id
-        /// </param>
-        /// <param name='ridUser'>
-        /// Required. The User Id
-        /// </param>
-        /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
-        /// </param>
-        /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
-        /// </param>
-        /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
-        /// </param>
-        /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
-        /// </param>
-        /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// Cancellation token.
-        /// </param>
-        public async Task<HttpOperationResponse<User>> GetUserByIdWithOperationResponseAsync(string ridDB, string ridUser, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            // Validate
-            if (ridDB == null)
-            {
-                throw new ArgumentNullException(nameof(ridDB));
-            }
-            if (ridUser == null)
-            {
-                throw new ArgumentNullException(nameof(ridUser));
-            }
-            if (authorization == null)
-            {
-                throw new ArgumentNullException(nameof(authorization));
-            }
-            if (contentType == null)
-            {
-                throw new ArgumentNullException(nameof(contentType));
-            }
-            if (userAgent == null)
-            {
-                throw new ArgumentNullException(nameof(userAgent));
-            }
-            if (xMSDate == null)
-            {
-                throw new ArgumentNullException(nameof(xMSDate));
-            }
-            if (xMSVersion == null)
-            {
-                throw new ArgumentNullException(nameof(xMSVersion));
-            }
-
-            // Tracing
-            var shouldTrace = ServiceClientTracing.IsEnabled;
-            string invocationId = null;
-            if (shouldTrace)
-            {
-                invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"ridUser", ridUser},
-                    {"authorization", authorization},
-                    {"contentType", contentType},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
-                ServiceClientTracing.Enter(invocationId, this, "GetIserByIdAsync", tracingParameters);
-            }
-
-            // Construct URL
-            var url = "";
-            url = url + "/";
-            url = url + Uri.EscapeDataString(ridDB);
-            url = url + "/users/";
-            url = url + Uri.EscapeDataString(ridUser);
-            var baseUrl = BaseUri.AbsoluteUri;
-            // Trim '/' character from the end of baseUrl and beginning of url.
-            if (baseUrl[baseUrl.Length - 1] == '/')
-            {
-                baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
-            }
-            if (url[0] == '/')
-            {
-                url = url.Substring(1);
-            }
-            url = baseUrl + "/" + url;
-            url = url.Replace(" ", "%20");
-
-            // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url)
-            };
-
-            // Set Headers
-            httpRequest.Headers.Add("Authorization", authorization);
-            httpRequest.Headers.Add("User-Agent", userAgent);
-            httpRequest.Headers.Add("x-ms-date", xMSDate);
-            httpRequest.Headers.Add("x-ms-version", xMSVersion);
-
-            // Set Credentials
-            if (Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Credentials.ProcessHttpRequestAsync(httpRequest, cancellationToken).ConfigureAwait(false);
-            }
-
-            // Send Request
-            if (shouldTrace)
-            {
-                ServiceClientTracing.SendRequest(invocationId, httpRequest);
-            }
-            cancellationToken.ThrowIfCancellationRequested();
-            var httpResponse = await HttpClient.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
-            if (shouldTrace)
-            {
-                ServiceClientTracing.ReceiveResponse(invocationId, httpResponse);
-            }
-            var statusCode = httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
-            {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
-                {
-                    Request = httpRequest,
-                    Response = httpResponse,
-                    Body = errorModel
-                };
-                if (shouldTrace)
-                {
-                    ServiceClientTracing.Error(invocationId, ex);
-                }
-                throw ex;
-            }
-
-            // Create Result
-            var result = new HttpOperationResponse<User>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
-
-            // Deserialize Response
-            if (statusCode == HttpStatusCode.OK)
-            {
-                var resultModel = new User();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    resultModel.DeserializeJson(responseDoc);
-                }
-                result.Body = resultModel;
-            }
-
-            if (shouldTrace)
-            {
-                ServiceClientTracing.Exit(invocationId, result);
-            }
-            return result;
-        }
-#pragma warning restore 1570
-
         /// <param name='databaseaccount'>
-        /// Required. The Database Account Name
+        ///     Required. The Database Account Name
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation. example:
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. Fri, 08 Apr 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015
+        ///         03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<IList<Offer>>> GetListOfOffersWithOperationResponseAsync(string databaseaccount, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<Offer>>> GetListOfOffersWithOperationResponseAsync(
+            string databaseaccount, string authorization, string contentType, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (databaseaccount == null)
+            {
                 throw new ArgumentNullException(nameof(databaseaccount));
+            }
             if (authorization == null)
+            {
                 throw new ArgumentNullException(nameof(authorization));
+            }
             if (contentType == null)
+            {
                 throw new ArgumentNullException(nameof(contentType));
+            }
             if (userAgent == null)
+            {
                 throw new ArgumentNullException(nameof(userAgent));
+            }
             if (xMSDate == null)
+            {
                 throw new ArgumentNullException(nameof(xMSDate));
+            }
             if (xMSVersion == null)
+            {
                 throw new ArgumentNullException(nameof(xMSVersion));
+            }
 
             // Tracing
             var shouldTrace = ServiceClientTracing.IsEnabled;
@@ -3354,9 +3248,13 @@ namespace DocumentDBRestApi
             var baseUrl = BaseUri.AbsoluteUri;
             // Trim '/' character from the end of baseUrl and beginning of url.
             if (baseUrl[baseUrl.Length - 1] == '/')
+            {
                 baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
+            }
             if (url[0] == '/')
+            {
                 url = url.Substring(1);
+            }
             url = baseUrl + "/" + url;
             url = url.Replace(" ", "%20");
 
@@ -3382,30 +3280,31 @@ namespace DocumentDBRestApi
 
             // Send Request
             if (shouldTrace)
+            {
                 ServiceClientTracing.SendRequest(invocationId, httpRequest);
+            }
             cancellationToken.ThrowIfCancellationRequested();
             var httpResponse = await HttpClient.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
             if (shouldTrace)
+            {
                 ServiceClientTracing.ReceiveResponse(invocationId, httpResponse);
+            }
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                    responseDoc = JToken.Parse(responseContent);
-                if (responseDoc != null)
-                    errorModel.DeserializeJson(responseDoc);
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
+                {
                     ServiceClientTracing.Error(invocationId, ex);
+                }
                 throw ex;
             }
 
@@ -3422,48 +3321,61 @@ namespace DocumentDBRestApi
                 IList<Offer> resultModel = new List<Offer>();
                 JToken responseDoc = null;
                 if (string.IsNullOrEmpty(responseContent) == false)
+                {
                     responseDoc = JToken.Parse(responseContent);
+                }
                 if (responseDoc != null)
+                {
                     resultModel = OfferCollection.DeserializeJson(responseDoc);
+                }
                 result.Body = resultModel;
             }
 
             if (shouldTrace)
+            {
                 ServiceClientTracing.Exit(invocationId, result);
+            }
             return result;
         }
 
         /// <summary>
-        /// Get a list of users resource of a particular database
+        ///     Get a list of users resource of a particular database
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}..
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example -Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.          example -
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<IList<User>>> GetListOfUsersWithOperationResponseAsync(string ridDB, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<User>>> GetListOfUsersWithOperationResponseAsync(string ridDB,
+            string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -3497,15 +3409,13 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"authorization", authorization},
-                    {"contentType", contentType},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "GetListOfUsersAsync", tracingParameters);
             }
 
@@ -3528,11 +3438,9 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
@@ -3561,24 +3469,13 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
-                {
-                    Request = httpRequest,
-                    Response = httpResponse,
-                    Body = errorModel
-                };
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);
@@ -3587,11 +3484,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<IList<User>>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<IList<User>>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -3615,38 +3510,45 @@ namespace DocumentDBRestApi
             }
             return result;
         }
-#pragma warning restore 1570
 
         /// <param name='ridOffer'>
-        /// Required. The Offer Id
+        ///     Required. The Offer Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation. example:
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example:
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Offer>> GetOfferWithOperationResponseAsync(string ridOffer, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Offer>> GetOfferWithOperationResponseAsync(string ridOffer,
+            string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridOffer == null)
@@ -3680,15 +3582,13 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridOffer", ridOffer},
-                    {"authorization", authorization},
-                    {"contentType", contentType},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridOffer", ridOffer);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "GetOfferAsync", tracingParameters);
             }
 
@@ -3710,11 +3610,9 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
@@ -3743,24 +3641,14 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
-                {
-                    Request = httpRequest,
-                    Response = httpResponse,
-                    Body = errorModel
-                };
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);
@@ -3769,11 +3657,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<Offer>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<Offer>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -3797,51 +3683,54 @@ namespace DocumentDBRestApi
             }
             return result;
         }
-#pragma warning restore 1570
 
         /// <summary>
-        /// Performing a GET operation on a specific permission resource
-        /// retrieves the permission properties, including the token, for the
-        /// particular permission. A new resource token is created every time
-        /// a GET is invoked on the permission resource. This new token has
-        /// the default validity period of one hour, unless it is overridden.
+        ///     Performing a GET operation on a specific permission resource
+        ///     retrieves the permission properties, including the token, for the
+        ///     particular permission. A new resource token is created every time
+        ///     a GET is invoked on the permission resource. This new token has
+        ///     the default validity period of one hour, unless it is overridden.
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridUser'>
-        /// Required. The User Id
+        ///     Required. The User Id
         /// </param>
         /// <param name='ridPerm'>
-        /// Required. The Permission Id
+        ///     Required. The Permission Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation. example:
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is {user agent name}/{version}.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example- Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example-
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Permission>> GetPermissionWithOperationResponseAsync(string ridDB, string ridUser, string ridPerm, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Permission>> GetPermissionWithOperationResponseAsync(string ridDB,
+            string ridUser, string ridPerm, string authorization, string contentType, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -3883,17 +3772,15 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"ridUser", ridUser},
-                    {"ridPerm", ridPerm},
-                    {"authorization", authorization},
-                    {"contentType", contentType},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridUser", ridUser);
+                tracingParameters.Add("ridPerm", ridPerm);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "GetPermissionAsync", tracingParameters);
             }
 
@@ -3919,11 +3806,9 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
@@ -3952,24 +3837,14 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.NotFound && statusCode != HttpStatusCode.MethodNotAllowed && statusCode != HttpStatusCode.Conflict)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.NotFound &&
+                statusCode != HttpStatusCode.MethodNotAllowed && statusCode != HttpStatusCode.Conflict)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
-                {
-                    Request = httpRequest,
-                    Response = httpResponse,
-                    Body = errorModel
-                };
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);
@@ -3978,11 +3853,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<Permission>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<Permission>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -4008,32 +3881,226 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// List Collections
+        ///     Get a User
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
+        /// </param>
+        /// <param name='ridUser'>
+        ///     Required. The User Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
+        /// </param>
+        /// <param name='contentType'>
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example -Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.          example -
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<IList<Collection>>> ListCollectionsWithOperationResponseAsync(string ridDB, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<User>> GetUserByIdWithOperationResponseAsync(string ridDB,
+            string ridUser, string authorization, string contentType, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Validate
+            if (ridDB == null)
+            {
+                throw new ArgumentNullException(nameof(ridDB));
+            }
+            if (ridUser == null)
+            {
+                throw new ArgumentNullException(nameof(ridUser));
+            }
+            if (authorization == null)
+            {
+                throw new ArgumentNullException(nameof(authorization));
+            }
+            if (contentType == null)
+            {
+                throw new ArgumentNullException(nameof(contentType));
+            }
+            if (userAgent == null)
+            {
+                throw new ArgumentNullException(nameof(userAgent));
+            }
+            if (xMSDate == null)
+            {
+                throw new ArgumentNullException(nameof(xMSDate));
+            }
+            if (xMSVersion == null)
+            {
+                throw new ArgumentNullException(nameof(xMSVersion));
+            }
+
+            // Tracing
+            var shouldTrace = ServiceClientTracing.IsEnabled;
+            string invocationId = null;
+            if (shouldTrace)
+            {
+                invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridUser", ridUser);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
+                ServiceClientTracing.Enter(invocationId, this, "GetUserByIdAsync", tracingParameters);
+            }
+
+            // Construct URL
+            var url = "";
+            url = url + "/";
+            url = url + Uri.EscapeDataString(ridDB);
+            url = url + "/users/";
+            url = url + Uri.EscapeDataString(ridUser);
+            var baseUrl = BaseUri.AbsoluteUri;
+            // Trim '/' character from the end of baseUrl and beginning of url.
+            if (baseUrl[baseUrl.Length - 1] == '/')
+            {
+                baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
+            }
+            if (url[0] == '/')
+            {
+                url = url.Substring(1);
+            }
+            url = baseUrl + "/" + url;
+            url = url.Replace(" ", "%20");
+
+            // Create HTTP transport objects
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.RequestUri = new Uri(url);
+
+            // Set Headers
+            httpRequest.Headers.Add("Authorization", authorization);
+            httpRequest.Headers.Add("User-Agent", userAgent);
+            httpRequest.Headers.Add("x-ms-date", xMSDate);
+            httpRequest.Headers.Add("x-ms-version", xMSVersion);
+
+            // Set Credentials
+            if (Credentials != null)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await Credentials.ProcessHttpRequestAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+            }
+
+            // Send Request
+            if (shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(invocationId, httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            var httpResponse = await HttpClient.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+            if (shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(invocationId, httpResponse);
+            }
+            var statusCode = httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            {
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
+                if (shouldTrace)
+                {
+                    ServiceClientTracing.Error(invocationId, ex);
+                }
+                throw ex;
+            }
+
+            // Create Result
+            var result = new HttpOperationResponse<User>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
+
+            // Deserialize Response
+            if (statusCode == HttpStatusCode.OK)
+            {
+                var resultModel = new User();
+                JToken responseDoc = null;
+                if (string.IsNullOrEmpty(responseContent) == false)
+                {
+                    responseDoc = JToken.Parse(responseContent);
+                }
+                if (responseDoc != null)
+                {
+                    resultModel.DeserializeJson(responseDoc);
+                }
+                result.Body = resultModel;
+            }
+
+            if (shouldTrace)
+            {
+                ServiceClientTracing.Exit(invocationId, result);
+            }
+            return result;
+        }
+
+        /// <summary>
+        ///     List Collections
+        /// </summary>
+        /// <param name='ridDB'>
+        ///     Required. The Database Id
+        /// </param>
+        /// <param name='authorization'>
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
+        /// </param>
+        /// <param name='userAgent'>
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
+        ///     .
+        /// </param>
+        /// <param name='xMSDate'>
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example -
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
+        /// </param>
+        /// <param name='xMSVersion'>
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
+        /// </param>
+        /// <param name='cancellationToken'>
+        ///     Cancellation token.
+        /// </param>
+        public async Task<HttpOperationResponse<IList<Collection>>> ListCollectionsWithOperationResponseAsync(
+            string ridDB, string authorization, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -4063,14 +4130,12 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"authorization", authorization},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "ListCollectionsAsync", tracingParameters);
             }
 
@@ -4093,11 +4158,9 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
@@ -4126,24 +4189,13 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.Unauthorized &&
+                statusCode != HttpStatusCode.Forbidden)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
-                {
-                    Request = httpRequest,
-                    Response = httpResponse,
-                    Body = errorModel
-                };
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);
@@ -4152,11 +4204,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<IList<Collection>>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<IList<Collection>>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -4182,34 +4232,42 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// List Documents
+        ///     List Documents
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015
+        ///         03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<IList<Document>>> ListDocumentsWithOperationResponseAsync(string ridDB, string ridColl, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<Document>>> ListDocumentsWithOperationResponseAsync(string ridDB,
+            string ridColl, string authorization, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -4243,15 +4301,13 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"ridColl", ridColl},
-                    {"authorization", authorization},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridColl", ridColl);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "ListDocumentsAsync", tracingParameters);
             }
 
@@ -4276,11 +4332,9 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
@@ -4309,24 +4363,13 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
-                {
-                    Request = httpRequest,
-                    Response = httpResponse,
-                    Body = errorModel
-                };
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);
@@ -4335,11 +4378,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<IList<Document>>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<IList<Document>>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -4363,47 +4404,566 @@ namespace DocumentDBRestApi
             }
             return result;
         }
-#pragma warning restore 1570
 
-        /// <param name='databaseaccount'>
-        /// Required. The Database Account Name
+        /// <param name='ridDB'>
+        ///     Required. The Database Id
+        /// </param>
+        /// <param name='ridColl'>
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// "type={typeoftoken}&ver={tokenversion}&sig={hashsignature}"
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015
+        ///         03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Required. The Content-Type header must be
-        /// application/json.
-        /// </param>
-        /// <param name='xMSDocumentdbQueryEnableScan'>
-        /// Required.
+        ///     Required. Must be set to application/query+json
         /// </param>
         /// <param name='xMSDocumentdbIsquery'>
-        /// Required.
+        ///     Required. Required. This property must be set to true
+        /// </param>
+        /// <param name='xMSMaxItemCount'>
+        ///     Required. To page through a result set, set this header to the
+        ///     maximum number for items to be returned back in a single page.
+        ///     <remarks>Range 1 - 1000 Default value = 100</remarks>
+        /// </param>
+        /// <param name='xMSContinuation'>
+        ///     Required. To navigate to the next page of items, set this header to
+        ///     the continuation token for the next page.
+        /// </param>
+        /// <param name='xMSDocumentdbQueryEnableScan'>
+        ///     Required. Use an index scan to process the query if the right index
+        ///     path of type is not available.
+        /// </param>
+        /// <param name='xMSSessionToken'>
+        ///     Required. The session token for the request. Used for session
+        ///     consistency
+        /// </param>
+        /// <param name='accept'>
+        ///     Required. Optional. At the moment, DocumentDB always returns the
+        ///     response payload in standard JSON format. The client must be able
+        ///     to accept the response body in standard JSON format
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<QueryResponseBody>> QueryOfferWithOperationResponseAsync(string databaseaccount, QuerySql request, string authorization, string userAgent, string xMSDate, string xMSVersion, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<QueryResourceResponseBody>>
+            QueryCollectionResourceWithOperationResponseAsync(string ridDB, string ridColl, QueryRequest request,
+                string authorization, string userAgent, string xMSDate, string xMSVersion, string contentType,
+                bool xMSDocumentdbIsquery, string xMSMaxItemCount, string xMSContinuation,
+                bool? xMSDocumentdbQueryEnableScan, string xMSSessionToken, string accept,
+                CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Validate
+            if (ridDB == null)
+            {
+                throw new ArgumentNullException(nameof(ridDB));
+            }
+            if (ridColl == null)
+            {
+                throw new ArgumentNullException(nameof(ridColl));
+            }
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+            if (authorization == null)
+            {
+                throw new ArgumentNullException(nameof(authorization));
+            }
+            if (userAgent == null)
+            {
+                throw new ArgumentNullException(nameof(userAgent));
+            }
+            if (xMSDate == null)
+            {
+                throw new ArgumentNullException(nameof(xMSDate));
+            }
+            if (xMSVersion == null)
+            {
+                throw new ArgumentNullException(nameof(xMSVersion));
+            }
+            if (contentType == null)
+            {
+                throw new ArgumentNullException(nameof(contentType));
+            }
+            if (xMSMaxItemCount == null)
+            {
+                throw new ArgumentNullException(nameof(xMSMaxItemCount));
+            }
+            if (xMSContinuation == null)
+            {
+                throw new ArgumentNullException(nameof(xMSContinuation));
+            }
+            if (xMSDocumentdbQueryEnableScan == null)
+            {
+                throw new ArgumentNullException(nameof(xMSDocumentdbQueryEnableScan));
+            }
+            if (xMSSessionToken == null)
+            {
+                throw new ArgumentNullException(nameof(xMSSessionToken));
+            }
+            if (accept == null)
+            {
+                throw new ArgumentNullException(nameof(accept));
+            }
+
+            // Tracing
+            var shouldTrace = ServiceClientTracing.IsEnabled;
+            string invocationId = null;
+            if (shouldTrace)
+            {
+                invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridColl", ridColl);
+                tracingParameters.Add("request", request);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("xMSDocumentdbIsquery", xMSDocumentdbIsquery);
+                tracingParameters.Add("xMSMaxItemCount", xMSMaxItemCount);
+                tracingParameters.Add("xMSContinuation", xMSContinuation);
+                tracingParameters.Add("xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan);
+                tracingParameters.Add("xMSSessionToken", xMSSessionToken);
+                tracingParameters.Add("accept", accept);
+                ServiceClientTracing.Enter(invocationId, this, "QueryCollectionResourceAsync", tracingParameters);
+            }
+
+            // Construct URL
+            var url = "";
+            url = url + "/";
+            url = url + Uri.EscapeDataString(ridDB);
+            url = url + "/colls/";
+            url = url + Uri.EscapeDataString(ridColl);
+            url = url + "/";
+            var baseUrl = BaseUri.AbsoluteUri;
+            // Trim '/' character from the end of baseUrl and beginning of url.
+            if (baseUrl[baseUrl.Length - 1] == '/')
+            {
+                baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
+            }
+            if (url[0] == '/')
+            {
+                url = url.Substring(1);
+            }
+            url = baseUrl + "/" + url;
+            url = url.Replace(" ", "%20");
+
+            // Create HTTP transport objects
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Post;
+            httpRequest.RequestUri = new Uri(url);
+
+            // Set Headers
+            httpRequest.Headers.Add("Accept", accept);
+            httpRequest.Headers.Add("Authorization", authorization);
+            httpRequest.Headers.Add("User-Agent", userAgent);
+            httpRequest.Headers.Add("x-ms-continuation", xMSContinuation);
+            httpRequest.Headers.Add("x-ms-date", xMSDate);
+            httpRequest.Headers.Add("x-ms-documentdb-isquery", xMSDocumentdbIsquery.ToString().ToLower());
+            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan",
+                xMSDocumentdbQueryEnableScan.Value.ToString().ToLower());
+            httpRequest.Headers.Add("x-ms-max-item-count", xMSMaxItemCount);
+            httpRequest.Headers.Add("x-ms-session-token", xMSSessionToken);
+            httpRequest.Headers.Add("x-ms-version", xMSVersion);
+
+            // Set Credentials
+            if (Credentials != null)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await Credentials.ProcessHttpRequestAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+            }
+
+            // Serialize Request
+
+            var requestDoc = request.SerializeJson(null);
+            var requestContent = requestDoc.ToString(Formatting.Indented);
+            httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
+            httpRequest.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+
+            // Send Request
+            if (shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(invocationId, httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            var httpResponse = await HttpClient.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+            if (shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(invocationId, httpResponse);
+            }
+            var statusCode = httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
+            {
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
+                if (shouldTrace)
+                {
+                    ServiceClientTracing.Error(invocationId, ex);
+                }
+                throw ex;
+            }
+
+            // Create Result
+            var result = new HttpOperationResponse<QueryResourceResponseBody>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
+
+            // Deserialize Response
+            if (statusCode == HttpStatusCode.OK)
+            {
+                var resultModel = new QueryResourceResponseBody();
+                JToken responseDoc = null;
+                if (string.IsNullOrEmpty(responseContent) == false)
+                {
+                    responseDoc = JToken.Parse(responseContent);
+                }
+                if (responseDoc != null)
+                {
+                    resultModel.DeserializeJson(responseDoc);
+                }
+                result.Body = resultModel;
+            }
+
+            if (shouldTrace)
+            {
+                ServiceClientTracing.Exit(invocationId, result);
+            }
+            return result;
+        }
+
+        /// <param name='ridDB'>
+        ///     Required. The Database Id
+        /// </param>
+        /// <param name='ridColl'>
+        ///     Required. The Collection Id
+        /// </param>
+        /// <param name='request'>
+        ///     Required.
+        /// </param>
+        /// <param name='authorization'>
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
+        /// </param>
+        /// <param name='userAgent'>
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request.
+        /// </param>
+        /// <param name='xMSDate'>
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015 03:52:31 GMT
+        ///     </example>
+        /// </param>
+        /// <param name='xMSVersion'>
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use
+        ///     <c>2015-08-06</c>
+        /// </param>
+        /// <param name='contentType'>
+        ///     Required. Must be set to application/query+json
+        /// </param>
+        /// <param name='xMSDocumentdbIsquery'>
+        ///     Required. Required. This property must be set to true
+        /// </param>
+        /// <param name='xMSMaxItemCount'>
+        ///     Required. To page through a result set, set this header to the
+        ///     maximum number for items to be returned back in a single page.
+        ///     <remarks>Range 1 - 1000 Default value = 100</remarks>
+        /// </param>
+        /// <param name='xMSContinuation'>
+        ///     Required. To navigate to the next page of items, set this header to
+        ///     the continuation token for the next page.
+        /// </param>
+        /// <param name='xMSDocumentdbQueryEnableScan'>
+        ///     Required. Use an index scan to process the query if the right index
+        ///     path of type is not available.
+        /// </param>
+        /// <param name='xMSSessionToken'>
+        ///     Required. The session token for the request. Used for session
+        ///     consistency
+        /// </param>
+        /// <param name='accept'>
+        ///     Required. Optional. At the moment, DocumentDB always returns the
+        ///     response payload in standard JSON format. The client must be able
+        ///     to accept the response body in standard JSON format
+        /// </param>
+        /// <param name='cancellationToken'>
+        ///     Cancellation token.
+        /// </param>
+        public async Task<HttpOperationResponse<QueryResourceResponseBody>>
+            QueryDocumentResourceWithOperationResponseAsync(string ridDB, string ridColl, QueryRequest request,
+                string authorization, string userAgent, string xMSDate, string xMSVersion, string contentType,
+                bool xMSDocumentdbIsquery, string xMSMaxItemCount, string xMSContinuation,
+                bool? xMSDocumentdbQueryEnableScan, string xMSSessionToken, string accept,
+                CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Validate
+            if (ridDB == null)
+            {
+                throw new ArgumentNullException(nameof(ridDB));
+            }
+            if (ridColl == null)
+            {
+                throw new ArgumentNullException(nameof(ridColl));
+            }
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+            if (authorization == null)
+            {
+                throw new ArgumentNullException(nameof(authorization));
+            }
+            if (userAgent == null)
+            {
+                throw new ArgumentNullException(nameof(userAgent));
+            }
+            if (xMSDate == null)
+            {
+                throw new ArgumentNullException(nameof(xMSDate));
+            }
+            if (xMSVersion == null)
+            {
+                throw new ArgumentNullException(nameof(xMSVersion));
+            }
+            if (contentType == null)
+            {
+                throw new ArgumentNullException(nameof(contentType));
+            }
+            if (xMSMaxItemCount == null)
+            {
+                throw new ArgumentNullException(nameof(xMSMaxItemCount));
+            }
+            if (xMSContinuation == null)
+            {
+                throw new ArgumentNullException(nameof(xMSContinuation));
+            }
+            if (xMSDocumentdbQueryEnableScan == null)
+            {
+                throw new ArgumentNullException(nameof(xMSDocumentdbQueryEnableScan));
+            }
+            if (xMSSessionToken == null)
+            {
+                throw new ArgumentNullException(nameof(xMSSessionToken));
+            }
+            if (accept == null)
+            {
+                throw new ArgumentNullException(nameof(accept));
+            }
+
+            // Tracing
+            var shouldTrace = ServiceClientTracing.IsEnabled;
+            string invocationId = null;
+            if (shouldTrace)
+            {
+                invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridColl", ridColl);
+                tracingParameters.Add("request", request);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("xMSDocumentdbIsquery", xMSDocumentdbIsquery);
+                tracingParameters.Add("xMSMaxItemCount", xMSMaxItemCount);
+                tracingParameters.Add("xMSContinuation", xMSContinuation);
+                tracingParameters.Add("xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan);
+                tracingParameters.Add("xMSSessionToken", xMSSessionToken);
+                tracingParameters.Add("accept", accept);
+                ServiceClientTracing.Enter(invocationId, this, "QueryDocumentResourceAsync", tracingParameters);
+            }
+
+            // Construct URL
+            var url = "";
+            url = url + "/";
+            url = url + Uri.EscapeDataString(ridDB);
+            url = url + "/colls/";
+            url = url + Uri.EscapeDataString(ridColl);
+            url = url + "/doc";
+            var baseUrl = BaseUri.AbsoluteUri;
+            // Trim '/' character from the end of baseUrl and beginning of url.
+            if (baseUrl[baseUrl.Length - 1] == '/')
+            {
+                baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
+            }
+            if (url[0] == '/')
+            {
+                url = url.Substring(1);
+            }
+            url = baseUrl + "/" + url;
+            url = url.Replace(" ", "%20");
+
+            // Create HTTP transport objects
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Post;
+            httpRequest.RequestUri = new Uri(url);
+
+            // Set Headers
+            httpRequest.Headers.Add("Accept", accept);
+            httpRequest.Headers.Add("Authorization", authorization);
+            httpRequest.Headers.Add("User-Agent", userAgent);
+            httpRequest.Headers.Add("x-ms-continuation", xMSContinuation);
+            httpRequest.Headers.Add("x-ms-date", xMSDate);
+            httpRequest.Headers.Add("x-ms-documentdb-isquery", xMSDocumentdbIsquery.ToString().ToLower());
+            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan",
+                xMSDocumentdbQueryEnableScan.Value.ToString().ToLower());
+            httpRequest.Headers.Add("x-ms-max-item-count", xMSMaxItemCount);
+            httpRequest.Headers.Add("x-ms-session-token", xMSSessionToken);
+            httpRequest.Headers.Add("x-ms-version", xMSVersion);
+
+            // Set Credentials
+            if (Credentials != null)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await Credentials.ProcessHttpRequestAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+            }
+
+            // Serialize Request
+
+            var requestDoc = request.SerializeJson(null);
+            var requestContent = requestDoc.ToString(Formatting.Indented);
+            httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
+            httpRequest.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+
+            // Send Request
+            if (shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(invocationId, httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            var httpResponse = await HttpClient.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+            if (shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(invocationId, httpResponse);
+            }
+            var statusCode = httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
+            {
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
+                if (shouldTrace)
+                {
+                    ServiceClientTracing.Error(invocationId, ex);
+                }
+                throw ex;
+            }
+
+            // Create Result
+            var result = new HttpOperationResponse<QueryResourceResponseBody>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
+
+            // Deserialize Response
+            if (statusCode == HttpStatusCode.OK)
+            {
+                var resultModel = new QueryResourceResponseBody();
+                JToken responseDoc = null;
+                if (string.IsNullOrEmpty(responseContent) == false)
+                {
+                    responseDoc = JToken.Parse(responseContent);
+                }
+                if (responseDoc != null)
+                {
+                    resultModel.DeserializeJson(responseDoc);
+                }
+                result.Body = resultModel;
+            }
+
+            if (shouldTrace)
+            {
+                ServiceClientTracing.Exit(invocationId, result);
+            }
+            return result;
+        }
+
+        /// <param name='databaseaccount'>
+        ///     Required. The Database Account Name
+        /// </param>
+        /// <param name='request'>
+        ///     Required.
+        /// </param>
+        /// <param name='authorization'>
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation. example:
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
+        /// </param>
+        /// <param name='userAgent'>
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
+        /// </param>
+        /// <param name='xMSDate'>
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example:
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
+        /// </param>
+        /// <param name='xMSVersion'>
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
+        /// </param>
+        /// <param name='contentType'>
+        ///     Required. Required. The Content-Type header must be
+        ///     application/json.
+        /// </param>
+        /// <param name='xMSDocumentdbQueryEnableScan'>
+        ///     Required.
+        /// </param>
+        /// <param name='xMSDocumentdbIsquery'>
+        ///     Required.
+        /// </param>
+        /// <param name='cancellationToken'>
+        ///     Cancellation token.
+        /// </param>
+        public async Task<HttpOperationResponse<QueryResponseBody>> QueryOfferWithOperationResponseAsync(
+            string databaseaccount, QuerySql request, string authorization, string userAgent, string xMSDate,
+            string xMSVersion, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (databaseaccount == null)
@@ -4441,18 +5001,16 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"databaseaccount", databaseaccount},
-                    {"request", request},
-                    {"authorization", authorization},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion},
-                    {"contentType", contentType},
-                    {"xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan},
-                    {"xMSDocumentdbIsquery", xMSDocumentdbIsquery}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("databaseaccount", databaseaccount);
+                tracingParameters.Add("request", request);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan);
+                tracingParameters.Add("xMSDocumentdbIsquery", xMSDocumentdbIsquery);
                 ServiceClientTracing.Enter(invocationId, this, "QueryOfferAsync", tracingParameters);
             }
 
@@ -4475,18 +5033,17 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Post;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
             httpRequest.Headers.Add("User-Agent", userAgent);
             httpRequest.Headers.Add("x-ms-date", xMSDate);
             httpRequest.Headers.Add("x-ms-documentdb-isquery", xMSDocumentdbIsquery.ToString().ToLower());
-            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan", xMSDocumentdbQueryEnableScan.ToString().ToLower());
+            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan",
+                xMSDocumentdbQueryEnableScan.ToString().ToLower());
             httpRequest.Headers.Add("x-ms-version", xMSVersion);
 
             // Set Credentials
@@ -4497,6 +5054,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -4516,23 +5074,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -4572,44 +5122,51 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Query a Permission
+        ///     Query a Permission
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridUser'>
-        /// Required. The User Id
+        ///     Required. The User Id
         /// </param>
         /// <param name='request'>
-        /// Required. The Request Body
+        ///     Required. The Request Body
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Required. The Content-Type header must be
-        /// application/json.
+        ///     Required. Required. The Content-Type header must be
+        ///     application/json.
         /// </param>
         /// <param name='xMSDocumentdbQueryEnableScan'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='xMSDocumentdbIsquery'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example - Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example -
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<QueryResponseBody>> QueryPermissionWithOperationResponseAsync(string ridDB, string ridUser, QueryRequest request, string authorization, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<QueryResponseBody>> QueryPermissionWithOperationResponseAsync(
+            string ridDB, string ridUser, QueryRequest request, string authorization, string contentType,
+            bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -4647,18 +5204,16 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"ridUser", ridUser},
-                    {"request", request},
-                    {"authorization", authorization},
-                    {"contentType", contentType},
-                    {"xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan},
-                    {"xMSDocumentdbIsquery", xMSDocumentdbIsquery},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridUser", ridUser);
+                tracingParameters.Add("request", request);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan);
+                tracingParameters.Add("xMSDocumentdbIsquery", xMSDocumentdbIsquery);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "QueryPermissionAsync", tracingParameters);
             }
 
@@ -4683,17 +5238,16 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Post;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
             httpRequest.Headers.Add("x-ms-date", xMSDate);
             httpRequest.Headers.Add("x-ms-documentdb-isquery", xMSDocumentdbIsquery.ToString().ToLower());
-            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan", xMSDocumentdbQueryEnableScan.ToString().ToLower());
+            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan",
+                xMSDocumentdbQueryEnableScan.ToString().ToLower());
             httpRequest.Headers.Add("x-ms-version", xMSVersion);
 
             // Set Credentials
@@ -4704,6 +5258,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -4723,24 +5278,14 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
-                {
-                    Request = httpRequest,
-                    Response = httpResponse,
-                    Body = errorModel
-                };
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);
@@ -4749,11 +5294,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<QueryResponseBody>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<QueryResponseBody>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -4779,48 +5322,59 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Query a Trigger
+        ///     Query a Trigger
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='contentType'>
-        /// Required. Required. The Content-Type header must be
-        /// application/json.
+        ///     Required. Required. The Content-Type header must be
+        ///     application/json.
         /// </param>
         /// <param name='xMSDocumentdbQueryEnableScan'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='xMSDocumentdbIsquery'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.       example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.       example -
+        ///     <example>
+        ///         Fri,
+        ///         08 Apr 2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<QueryResponseBody>> QueryTriggerWithOperationResponseAsync(string ridDB, string ridColl, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, QueryRequest request, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<QueryResponseBody>> QueryTriggerWithOperationResponseAsync(string ridDB,
+            string ridColl, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery,
+            QueryRequest request, string authorization, string userAgent, string xMSDate, string xMSVersion,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -4862,19 +5416,17 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"ridColl", ridColl},
-                    {"contentType", contentType},
-                    {"xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan},
-                    {"xMSDocumentdbIsquery", xMSDocumentdbIsquery},
-                    {"request", request},
-                    {"authorization", authorization},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridColl", ridColl);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan);
+                tracingParameters.Add("xMSDocumentdbIsquery", xMSDocumentdbIsquery);
+                tracingParameters.Add("request", request);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "QueryTriggerAsync", tracingParameters);
             }
 
@@ -4899,18 +5451,17 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(url)
-            };
+            var httpRequest = new HttpRequestMessage();
+            httpRequest.Method = HttpMethod.Post;
+            httpRequest.RequestUri = new Uri(url);
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
             httpRequest.Headers.Add("User-Agent", userAgent);
             httpRequest.Headers.Add("x-ms-date", xMSDate);
             httpRequest.Headers.Add("x-ms-documentdb-isquery", xMSDocumentdbIsquery.ToString().ToLower());
-            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan", xMSDocumentdbQueryEnableScan.ToString().ToLower());
+            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan",
+                xMSDocumentdbQueryEnableScan.ToString().ToLower());
             httpRequest.Headers.Add("x-ms-version", xMSVersion);
 
             // Set Credentials
@@ -4921,6 +5472,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -4940,24 +5492,14 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
-                {
-                    Request = httpRequest,
-                    Response = httpResponse,
-                    Body = errorModel
-                };
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);
@@ -4966,11 +5508,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<QueryResponseBody>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<QueryResponseBody>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -4996,48 +5536,59 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Query a UDF
+        ///     Query a UDF
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Required. The Content-Type header must be
-        /// application/json.
+        ///     Required. Required. The Content-Type header must be
+        ///     application/json.
         /// </param>
         /// <param name='xMSDocumentdbQueryEnableScan'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='xMSDocumentdbIsquery'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example:
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<QueryResponseBody>> QueryUdfWithOperationResponseAsync(string ridDB, string ridColl, QueryRequest request, string authorization, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<QueryResponseBody>> QueryUdfWithOperationResponseAsync(string ridDB,
+            string ridColl, QueryRequest request, string authorization, string contentType,
+            bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -5079,19 +5630,17 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"ridColl", ridColl},
-                    {"request", request},
-                    {"authorization", authorization},
-                    {"contentType", contentType},
-                    {"xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan},
-                    {"xMSDocumentdbIsquery", xMSDocumentdbIsquery},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridColl", ridColl);
+                tracingParameters.Add("request", request);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("contentType", contentType);
+                tracingParameters.Add("xMSDocumentdbQueryEnableScan", xMSDocumentdbQueryEnableScan);
+                tracingParameters.Add("xMSDocumentdbIsquery", xMSDocumentdbIsquery);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "QueryUdfAsync", tracingParameters);
             }
 
@@ -5127,7 +5676,8 @@ namespace DocumentDBRestApi
             httpRequest.Headers.Add("User-Agent", userAgent);
             httpRequest.Headers.Add("x-ms-date", xMSDate);
             httpRequest.Headers.Add("x-ms-documentdb-isquery", xMSDocumentdbIsquery.ToString().ToLower());
-            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan", xMSDocumentdbQueryEnableScan.ToString().ToLower());
+            httpRequest.Headers.Add("x-ms-documentdb-query-enable-scan",
+                xMSDocumentdbQueryEnableScan.ToString().ToLower());
             httpRequest.Headers.Add("x-ms-version", xMSVersion);
 
             // Set Credentials
@@ -5138,6 +5688,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -5157,24 +5708,14 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
-                {
-                    Request = httpRequest,
-                    Response = httpResponse,
-                    Body = errorModel
-                };
+                var ex = new HttpOperationException();
+                ex.Request = httpRequest;
+                ex.Response = httpResponse;
+                ex.Body = null;
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);
@@ -5183,11 +5724,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<QueryResponseBody>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<QueryResponseBody>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -5213,38 +5752,46 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Register a Stored Procedure
+        ///     Register a Stored Procedure
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
+        ///     .
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.          example -
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<StoredProcedure>> RegisterStoredProcedureWithOperationResponseAsync(string ridDB, string ridColl, QueryRequest request, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<StoredProcedure>> RegisterStoredProcedureWithOperationResponseAsync(
+            string ridDB, string ridColl, QueryRequest request, string authorization, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -5282,16 +5829,14 @@ namespace DocumentDBRestApi
             if (shouldTrace)
             {
                 invocationId = ServiceClientTracing.NextInvocationId.ToString();
-                var tracingParameters = new Dictionary<string, object>
-                {
-                    {"ridDB", ridDB},
-                    {"ridColl", ridColl},
-                    {"request", request},
-                    {"authorization", authorization},
-                    {"userAgent", userAgent},
-                    {"xMSDate", xMSDate},
-                    {"xMSVersion", xMSVersion}
-                };
+                var tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ridDB", ridDB);
+                tracingParameters.Add("ridColl", ridColl);
+                tracingParameters.Add("request", request);
+                tracingParameters.Add("authorization", authorization);
+                tracingParameters.Add("userAgent", userAgent);
+                tracingParameters.Add("xMSDate", xMSDate);
+                tracingParameters.Add("xMSVersion", xMSVersion);
                 ServiceClientTracing.Enter(invocationId, this, "RegisterStoredProcedureAsync", tracingParameters);
             }
 
@@ -5312,7 +5857,7 @@ namespace DocumentDBRestApi
             {
                 url = url.Substring(1);
             }
-            url = $"{baseUrl}/{url}";
+            url = baseUrl + "/" + url;
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
@@ -5336,6 +5881,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -5357,21 +5903,11 @@ namespace DocumentDBRestApi
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (statusCode != HttpStatusCode.OK)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -5411,40 +5947,47 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Replace a Document
+        ///     Replace a Document
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridColl'>
-        /// Required. The Collection Id
+        ///     Required. The Collection Id
         /// </param>
         /// <param name='ridDoc'>
-        /// Required. The Document Id
+        ///     Required. The Document Id
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request.
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.
+        ///     <example>
+        ///         Fri, 08 Apr 2015
+        ///         03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='request'>
-        /// Optional.
+        ///     Optional.
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Document>> ReplaceDocumentWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, string authorization, string userAgent, string xMSDate, string xMSVersion, Document request = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Document>> ReplaceDocumentWithOperationResponseAsync(string ridDB,
+            string ridColl, string ridDoc, string authorization, string userAgent, string xMSDate, string xMSVersion,
+            Document request = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -5538,6 +6081,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             if (request != null)
             {
                 var requestDoc = request.SerializeJson(null);
@@ -5560,23 +6104,16 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound && statusCode != HttpStatusCode.Conflict && statusCode != HttpStatusCode.RequestEntityTooLarge)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound && statusCode != HttpStatusCode.Conflict &&
+                statusCode != HttpStatusCode.RequestEntityTooLarge)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -5616,36 +6153,46 @@ namespace DocumentDBRestApi
         }
 
         /// <param name='ridOffer'>
-        /// Required. The Offer Id
+        ///     Required. The Offer Id
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example:
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Offer>> ReplaceOfferWithOperationResponseAsync(string ridOffer, ReplaceOffer request, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Offer>> ReplaceOfferWithOperationResponseAsync(string ridOffer,
+            ReplaceOffer request, string authorization, string contentType, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridOffer == null)
@@ -5734,6 +6281,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -5753,23 +6301,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -5809,41 +6349,56 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Replaces the entire user Permission.
+        ///     Replaces the entire user Permission.
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridUser'>
-        /// Required. The User Id
+        ///     Required. The User Id
         /// </param>
         /// <param name='ridPerm'>
-        /// Required. The Permission Id
+        ///     Required. The Permission Id
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example:
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
+        /// </param>
+        /// <param name='xMSDate'>
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format. example-
+        ///     <example>
+        ///         Fri, 08 Apr
+        ///         2015 03:52:31 GMT
+        ///     </example>
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<Permission>> ReplacePermissionWithOperationResponseAsync(string ridDB, string ridUser, string ridPerm, Permission request, string authorization, string contentType, string userAgent, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Permission>> ReplacePermissionWithOperationResponseAsync(string ridDB,
+            string ridUser, string ridPerm, Permission request, string authorization, string contentType,
+            string userAgent, string xMSVersion, string xMSDate,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -5878,6 +6433,10 @@ namespace DocumentDBRestApi
             {
                 throw new ArgumentNullException(nameof(xMSVersion));
             }
+            if (xMSDate == null)
+            {
+                throw new ArgumentNullException(nameof(xMSDate));
+            }
 
             // Tracing
             var shouldTrace = ServiceClientTracing.IsEnabled;
@@ -5894,7 +6453,8 @@ namespace DocumentDBRestApi
                     {"authorization", authorization},
                     {"contentType", contentType},
                     {"userAgent", userAgent},
-                    {"xMSVersion", xMSVersion}
+                    {"xMSVersion", xMSVersion},
+                    {"xMSDate", xMSDate}
                 };
                 ServiceClientTracing.Enter(invocationId, this, "ReplacePermissionAsync", tracingParameters);
             }
@@ -5930,6 +6490,7 @@ namespace DocumentDBRestApi
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
             httpRequest.Headers.Add("User-Agent", userAgent);
+            httpRequest.Headers.Add("x-ms-date", xMSDate);
             httpRequest.Headers.Add("x-ms-version", xMSVersion);
 
             // Set Credentials
@@ -5940,6 +6501,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -5959,23 +6521,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound && statusCode != HttpStatusCode.Conflict)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound && statusCode != HttpStatusCode.Conflict)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -6015,42 +6569,49 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// Replace a User
+        ///     Replace a User
         /// </summary>
         /// <param name='ridDB'>
-        /// Required. The Database Id
+        ///     Required. The Database Id
         /// </param>
         /// <param name='ridUser'>
-        /// Required. The User Id
+        ///     Required. The User Id
         /// </param>
         /// <param name='request'>
-        /// Required.
+        ///     Required.
         /// </param>
         /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        ///     Required. The authentication type and signature token. Both master
+        ///     key and resource tokens are allowed for this operation.
+        ///     <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
+        ///     Required. Optional. For creating a database, the Content-Type
+        ///     header must be application/json.
         /// </param>
         /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        ///     Required. Optional. The string of client user agent performing the
+        ///     request. The recommended format is
+        ///     <c>
+        ///         {user agent
+        ///         name}/{version}
+        ///     </c>
         /// </param>
         /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example: - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        ///     Required. The date of the request The date is expressed in
+        ///     Coordinated Universal Time format.          example: -
+        ///     <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        ///     Required. The version of DocumentDB REST service. The latest
+        ///     version is used when the header is not provided use 2015-08-06
         /// </param>
         /// <param name='cancellationToken'>
-        /// Cancellation token.
+        ///     Cancellation token.
         /// </param>
-        public async Task<HttpOperationResponse<User>> ReplaceUserWithOperationResponseAsync(string ridDB, string ridUser, User request, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<User>> ReplaceUserWithOperationResponseAsync(string ridDB,
+            string ridUser, User request, string authorization, string contentType, string userAgent, string xMSDate,
+            string xMSVersion, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Validate
             if (ridDB == null)
@@ -6119,7 +6680,9 @@ namespace DocumentDBRestApi
                 baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
             }
             if (url[0] == '/')
+            {
                 url = url.Substring(1);
+            }
             url = baseUrl + "/" + url;
             url = url.Replace(" ", "%20");
 
@@ -6144,6 +6707,7 @@ namespace DocumentDBRestApi
             }
 
             // Serialize Request
+
             var requestDoc = request.SerializeJson(null);
             var requestContent = requestDoc.ToString(Formatting.Indented);
             httpRequest.Content = new StringContent(requestContent, Encoding.UTF8);
@@ -6163,23 +6727,15 @@ namespace DocumentDBRestApi
             var statusCode = httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest && statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden && statusCode != HttpStatusCode.NotFound)
+            if (statusCode != HttpStatusCode.OK && statusCode != HttpStatusCode.BadRequest &&
+                statusCode != HttpStatusCode.Unauthorized && statusCode != HttpStatusCode.Forbidden &&
+                statusCode != HttpStatusCode.NotFound)
             {
-                var errorModel = new Error();
-                JToken responseDoc = null;
-                if (string.IsNullOrEmpty(responseContent) == false)
-                {
-                    responseDoc = JToken.Parse(responseContent);
-                }
-                if (responseDoc != null)
-                {
-                    errorModel.DeserializeJson(responseDoc);
-                }
-                var ex = new HttpOperationException(errorModel.Message)
+                var ex = new HttpOperationException
                 {
                     Request = httpRequest,
                     Response = httpResponse,
-                    Body = errorModel
+                    Body = null
                 };
                 if (shouldTrace)
                 {
@@ -6189,11 +6745,9 @@ namespace DocumentDBRestApi
             }
 
             // Create Result
-            var result = new HttpOperationResponse<User>
-            {
-                Request = httpRequest,
-                Response = httpResponse
-            };
+            var result = new HttpOperationResponse<User>();
+            result.Request = httpRequest;
+            result.Response = httpResponse;
 
             // Deserialize Response
             if (statusCode == HttpStatusCode.OK)
@@ -6219,13 +6773,18 @@ namespace DocumentDBRestApi
         }
 
         /// <summary>
-        /// The base URI of the service.
+        ///     The base URI of the service.
         /// </summary>
         public Uri BaseUri { get; set; }
 
         /// <summary>
-        /// Credentials for authenticating with the service.
+        ///     Credentials for authenticating with the service.
         /// </summary>
         public ServiceClientCredentials Credentials { get; set; }
+
+        /// <summary>
+        ///     The DocumentDB Account Name
+        /// </summary>
+        public string DocumentDbAccount { get; set; }
     }
 }

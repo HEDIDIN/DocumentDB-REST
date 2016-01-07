@@ -1,0 +1,83 @@
+﻿@model DocumentDBRestAPIClient.Models.AttachmentRaw
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> Attachement Details</h2>
+
+<div>
+    <h4>AttachmentRaw</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Etag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Permissions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Permissions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Self)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Self)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContentType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Slug)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Slug)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserAgent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserAgent)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

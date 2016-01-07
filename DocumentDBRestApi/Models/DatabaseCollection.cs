@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.Rest;
 using Microsoft.WindowsAzure.Common.Internals;
 using Newtonsoft.Json.Linq;
 
@@ -15,66 +14,16 @@ namespace DocumentDBRestApi.Models
     public class DatabaseCollection
     {
         /// <summary>
-        /// Optional. This is a system generated property that specifies the
-        /// addressable path of the collections resource.
-        /// </summary>
-        public string Colls { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property representing the
-        /// resource etag required for optimistic concurrency control.
-        /// </summary>
-        public string Etag { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property. The resource id
-        /// (_rid) is a unique identifier that is also hierarchical per the
-        /// resource stack on the resource model. It is used internally for
-        /// placement of and navigation to the database resource.
-        /// </summary>
-        public string Rid { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property. It is the unique
-        /// addressable URI for the resource.
-        /// </summary>
-        public string Self { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property. It specifies the
-        /// last updated timestamp of the resource. The value is a timestamp.
-        /// </summary>
-        public string Ts { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property that specifies the
-        /// addressable path of the users resource.
-        /// </summary>
-        public string Users { get; set; }
-
-        /// <summary>
-        /// Optional. This the array containing the databases returned as part
-        /// of the list operation.
-        /// </summary>
-        public IList<Database> Databases { get; set; }
-
-        /// <summary>
-        /// Required. The user generated unique name for the database. This is
-        /// a string that must not be more than 255 characters.
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the DatabaseCollection class.
+        ///     Initializes a new instance of the DatabaseCollection class.
         /// </summary>
         public DatabaseCollection()
         {
             Databases = new LazyList<Database>();
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the DatabaseCollection class with
-        /// required arguments.
+        ///     Initializes a new instance of the DatabaseCollection class with
+        ///     required arguments.
         /// </summary>
         public DatabaseCollection(string id)
             : this()
@@ -85,57 +34,109 @@ namespace DocumentDBRestApi.Models
             }
             Id = id;
         }
-        
+
         /// <summary>
-        /// Deserialize the object
+        ///     Optional. This is a system generated property that specifies the
+        ///     addressable path of the collections resource.
+        /// </summary>
+        public string Colls { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property representing the
+        ///     resource etag required for optimistic concurrency control.
+        /// </summary>
+        public string Etag { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property. The resource id
+        ///     (_rid) is a unique identifier that is also hierarchical per the
+        ///     resource stack on the resource model. It is used internally for
+        ///     placement of and navigation to the database resource.
+        /// </summary>
+        public string Rid { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property. It is the unique
+        ///     addressable URI for the resource.
+        /// </summary>
+        public string Self { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property. It specifies the
+        ///     last updated timestamp of the resource. The value is a timestamp.
+        /// </summary>
+        public string Ts { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property that specifies the
+        ///     addressable path of the users resource.
+        /// </summary>
+        public string Users { get; set; }
+
+        /// <summary>
+        ///     Optional. This the array containing the databases returned as part
+        ///     of the list operation.
+        /// </summary>
+        public IList<Database> Databases { get; set; }
+
+        /// <summary>
+        ///     Required. The user generated unique name for the database. This is
+        ///     a string that must not be more than 255 characters.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        ///     Deserialize the object
         /// </summary>
         public virtual void DeserializeJson(JToken inputObject)
         {
-            if (inputObject == null || inputObject.Type == JTokenType.Null) return;
-            var collsValue = inputObject["_colls"];
-            if (collsValue != null && collsValue.Type != JTokenType.Null)
+            if (inputObject != null && inputObject.Type != JTokenType.Null)
             {
-                Colls = ((string)collsValue);
-            }
-            var etagValue = inputObject["_etag"];
-            if (etagValue != null && etagValue.Type != JTokenType.Null)
-            {
-                Etag = ((string)etagValue);
-            }
-            var ridValue = inputObject["_rid"];
-            if (ridValue != null && ridValue.Type != JTokenType.Null)
-            {
-                Rid = ((string)ridValue);
-            }
-            var selfValue = inputObject["_self"];
-            if (selfValue != null && selfValue.Type != JTokenType.Null)
-            {
-                Self = ((string)selfValue);
-            }
-            var tsValue = inputObject["_ts"];
-            if (tsValue != null && tsValue.Type != JTokenType.Null)
-            {
-                Ts = ((string)tsValue);
-            }
-            var usersValue = inputObject["_users"];
-            if (usersValue != null && usersValue.Type != JTokenType.Null)
-            {
-                Users = ((string)usersValue);
-            }
-            var databasesSequence = inputObject["Databases"];
-            if (databasesSequence != null && databasesSequence.Type != JTokenType.Null)
-            {
-                foreach (var databasesValue in ((JArray)databasesSequence))
+                var collsValue = inputObject["_colls"];
+                if (collsValue != null && collsValue.Type != JTokenType.Null)
                 {
-                    var database = new Database();
-                    database.DeserializeJson(databasesValue);
-                    Databases.Add(database);
+                    Colls = (string) collsValue;
                 }
-            }
-            var idValue = inputObject["id"];
-            if (idValue != null && idValue.Type != JTokenType.Null)
-            {
-                Id = ((string)idValue);
+                var etagValue = inputObject["_etag"];
+                if (etagValue != null && etagValue.Type != JTokenType.Null)
+                {
+                    Etag = (string) etagValue;
+                }
+                var ridValue = inputObject["_rid"];
+                if (ridValue != null && ridValue.Type != JTokenType.Null)
+                {
+                    Rid = (string) ridValue;
+                }
+                var selfValue = inputObject["_self"];
+                if (selfValue != null && selfValue.Type != JTokenType.Null)
+                {
+                    Self = (string) selfValue;
+                }
+                var tsValue = inputObject["_ts"];
+                if (tsValue != null && tsValue.Type != JTokenType.Null)
+                {
+                    Ts = (string) tsValue;
+                }
+                var usersValue = inputObject["_users"];
+                if (usersValue != null && usersValue.Type != JTokenType.Null)
+                {
+                    Users = (string) usersValue;
+                }
+                var databasesSequence = inputObject["Databases"];
+                if (databasesSequence != null && databasesSequence.Type != JTokenType.Null)
+                {
+                    foreach (var databasesValue in (JArray) databasesSequence)
+                    {
+                        var database = new Database();
+                        database.DeserializeJson(databasesValue);
+                        Databases.Add(database);
+                    }
+                }
+                var idValue = inputObject["id"];
+                if (idValue != null && idValue.Type != JTokenType.Null)
+                {
+                    Id = (string) idValue;
+                }
             }
         }
     }

@@ -7,55 +7,19 @@ using Newtonsoft.Json.Linq;
 namespace DocumentDBRestApi.Models
 {
     /// <summary>
-    /// 
     /// </summary>
     public class User
     {
         /// <summary>
-        /// Optional. This is a system generated property representing the
-        /// resource etag required for optimistic concurrency control.
-        /// </summary>
-        public string Etag { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property denoting the
-        /// addressable path of the feed of permissions resource.
-        /// </summary>
-        public string Permissions { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property.
-        /// </summary>
-        public string Rid { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property.
-        /// </summary>
-        public string Self { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property. It specifies the
-        /// last updated timestamp of the resource. The value is a timestamp.
-        /// </summary>
-        public string Ts { get; set; }
-
-        /// <summary>
-        /// Required. This is the only user settable property. It is a unique
-        /// name that identifies a user, i.e. no two users share the same id
-        /// within a database. The name must not exceed 255 characters.
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the User class.
+        ///     Initializes a new instance of the User class.
         /// </summary>
         public User()
         {
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the User class with required
-        /// arguments.
+        ///     Initializes a new instance of the User class with required
+        ///     arguments.
         /// </summary>
         public User(string id)
             : this()
@@ -68,11 +32,45 @@ namespace DocumentDBRestApi.Models
         }
 
         /// <summary>
-        /// Serialize the object
+        ///     Optional. This is a system generated property representing the
+        ///     resource etag required for optimistic concurrency control.
         /// </summary>
-        /// <param name="outputObject">todo: describe outputObject parameter on SerializeJson</param>
+        public string Etag { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property denoting the
+        ///     addressable path of the feed of permissions resource.
+        /// </summary>
+        public string Permissions { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property.
+        /// </summary>
+        public string Rid { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property.
+        /// </summary>
+        public string Self { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property. It specifies the
+        ///     last updated timestamp of the resource. The value is a timestamp.
+        /// </summary>
+        public string Ts { get; set; }
+
+        /// <summary>
+        ///     Required. This is the only user settable property. It is a unique
+        ///     name that identifies a user, i.e. no two users share the same id
+        ///     within a database. The name must not exceed 255 characters.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        ///     Serialize the object
+        /// </summary>
         /// <returns>
-        /// Returns the json model for the type User
+        ///     Returns the json model for the type User
         /// </returns>
         public virtual JToken SerializeJson(JToken outputObject)
         {
@@ -112,41 +110,40 @@ namespace DocumentDBRestApi.Models
         }
 
         /// <summary>
-        /// Deserialize the object
+        ///     Deserialize the object
         /// </summary>
-        /// <param name="inputObject">todo: describe inputObject parameter on DeserializeJson</param>
         public virtual void DeserializeJson(JToken inputObject)
         {
             if (inputObject == null || inputObject.Type == JTokenType.Null) return;
             var etagValue = inputObject["_etag"];
             if (etagValue != null && etagValue.Type != JTokenType.Null)
             {
-                Etag = ((string)etagValue);
+                Etag = (string) etagValue;
             }
             var permissionsValue = inputObject["_permissions"];
             if (permissionsValue != null && permissionsValue.Type != JTokenType.Null)
             {
-                Permissions = ((string)permissionsValue);
+                Permissions = (string) permissionsValue;
             }
             var ridValue = inputObject["_rid"];
             if (ridValue != null && ridValue.Type != JTokenType.Null)
             {
-                Rid = ((string)ridValue);
+                Rid = (string) ridValue;
             }
             var selfValue = inputObject["_self"];
             if (selfValue != null && selfValue.Type != JTokenType.Null)
             {
-                Self = ((string)selfValue);
+                Self = (string) selfValue;
             }
             var tsValue = inputObject["_ts"];
             if (tsValue != null && tsValue.Type != JTokenType.Null)
             {
-                Ts = ((string)tsValue);
+                Ts = (string) tsValue;
             }
             var idValue = inputObject["id"];
             if (idValue != null && idValue.Type != JTokenType.Null)
             {
-                Id = ((string)idValue);
+                Id = (string) idValue;
             }
         }
     }

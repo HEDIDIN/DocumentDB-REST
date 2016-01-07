@@ -7,50 +7,19 @@ using Newtonsoft.Json.Linq;
 namespace DocumentDBRestApi.Models
 {
     /// <summary>
-    /// 
     /// </summary>
     public class StoredProcedure
     {
         /// <summary>
-        /// Optional.
-        /// </summary>
-        public string Etag { get; set; }
-
-        /// <summary>
-        /// Optional.
-        /// </summary>
-        public string Rid { get; set; }
-
-        /// <summary>
-        /// Optional.
-        /// </summary>
-        public string Self { get; set; }
-
-        /// <summary>
-        /// Optional.
-        /// </summary>
-        public string TS { get; set; }
-
-        /// <summary>
-        /// Required. This is the body of the stored procedure.
-        /// </summary>
-        public string Body { get; set; }
-
-        /// <summary>
-        /// Required.
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the StoredProcedure class.
+        ///     Initializes a new instance of the StoredProcedure class.
         /// </summary>
         public StoredProcedure()
         {
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the StoredProcedure class with
-        /// required arguments.
+        ///     Initializes a new instance of the StoredProcedure class with
+        ///     required arguments.
         /// </summary>
         public StoredProcedure(string id, string body)
             : this()
@@ -63,45 +32,79 @@ namespace DocumentDBRestApi.Models
             {
                 throw new ArgumentNullException(nameof(body));
             }
-            Id = id;
+            ID = id;
             Body = body;
         }
-        
+
         /// <summary>
-        /// Deserialize the object
+        ///     Optional. This is a system generated property representing the
+        ///     resource etag required for optimistic concurrency control.
+        /// </summary>
+        public string Etag { get; set; }
+
+        /// <summary>
+        ///     Optional.
+        /// </summary>
+        public string Rid { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property.
+        /// </summary>
+        public string Self { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property. It specifies the
+        ///     last updated timestamp of the resource. The value is a timestamp.
+        /// </summary>
+        public string TS { get; set; }
+
+        /// <summary>
+        ///     Required. This is the body of the stored procedure.
+        /// </summary>
+        public string Body { get; set; }
+
+        /// <summary>
+        ///     Required.
+        /// </summary>
+        public string ID { get; set; }
+
+        /// <summary>
+        ///     Deserialize the object
         /// </summary>
         public virtual void DeserializeJson(JToken inputObject)
         {
-            if (inputObject == null || inputObject.Type == JTokenType.Null) return;
-            var etagValue = inputObject["_etag"];
-            if (etagValue != null && etagValue.Type != JTokenType.Null)
+            if (inputObject != null && inputObject.Type != JTokenType.Null)
             {
-                Etag = ((string)etagValue);
-            }
-            var ridValue = inputObject["_rid"];
-            if (ridValue != null && ridValue.Type != JTokenType.Null)
-            {
-                Rid = ((string)ridValue);
-            }
-            var selfValue = inputObject["_self"];
-            if (selfValue != null && selfValue.Type != JTokenType.Null)
-            {
-                Self = ((string)selfValue);
-            }
-            var tsValue = inputObject["_ts"];
-            if (tsValue != null && tsValue.Type != JTokenType.Null)
-            {
-                TS = ((string)tsValue);
-            }
-            var bodyValue = inputObject["body"];
-            if (bodyValue != null && bodyValue.Type != JTokenType.Null)
-            {
-                Body = ((string)bodyValue);
-            }
-            var idValue = inputObject["id"];
-            if (idValue != null && idValue.Type != JTokenType.Null)
-            {
-                Id = ((string)idValue);
+                var etagValue = inputObject["_etag"];
+                if (etagValue != null && etagValue.Type != JTokenType.Null)
+                {
+                    Etag = (string) etagValue;
+                }
+                var ridValue = inputObject["_rid"];
+                if (ridValue != null && ridValue.Type != JTokenType.Null)
+                {
+                    Rid = (string) ridValue;
+                }
+                var selfValue = inputObject["_self"];
+                if (selfValue != null && selfValue.Type != JTokenType.Null)
+                {
+                    Self = (string) selfValue;
+                }
+                var tsValue = inputObject["_ts"];
+                if (tsValue != null && tsValue.Type != JTokenType.Null)
+                {
+                    TS = (string) tsValue;
+                }
+                var bodyValue = inputObject["body"];
+                if (bodyValue != null && bodyValue.Type != JTokenType.Null)
+                {
+                    Body = (string) bodyValue;
+                }
+                var idValue = inputObject["id"];
+                if (idValue != null && idValue.Type != JTokenType.Null)
+                {
+                    ID = (string) idValue;
+                }
             }
         }
     }

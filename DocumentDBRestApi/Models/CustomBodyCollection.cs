@@ -12,20 +12,15 @@ namespace DocumentDBRestApi.Models
     public class CustomBodyCollection
     {
         /// <summary>
-        /// Required. A JSON array of parameters specified as name value pairs.
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the CustomBodyCollection class.
+        ///     Initializes a new instance of the CustomBodyCollection class.
         /// </summary>
         public CustomBodyCollection()
         {
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the CustomBodyCollection class with
-        /// required arguments.
+        ///     Initializes a new instance of the CustomBodyCollection class with
+        ///     required arguments.
         /// </summary>
         public CustomBodyCollection(string id)
             : this()
@@ -36,12 +31,17 @@ namespace DocumentDBRestApi.Models
             }
             Id = id;
         }
-        
+
         /// <summary>
-        /// Serialize the object
+        ///     Required. A JSON array of parameters specified as name value pairs.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        ///     Serialize the object
         /// </summary>
         /// <returns>
-        /// Returns the json model for the type CustomBodyCollection
+        ///     Returns the json model for the type CustomBodyCollection
         /// </returns>
         public virtual JToken SerializeJson(JToken outputObject)
         {

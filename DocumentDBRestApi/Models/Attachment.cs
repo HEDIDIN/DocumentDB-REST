@@ -6,39 +6,19 @@ using System;
 namespace DocumentDBRestApi.Models
 {
     /// <summary>
-    /// 
     /// </summary>
     public class Attachment
     {
         /// <summary>
-        /// Required. This is a user settable property. It specifies the
-        /// content type of the attachment. .
-        /// </summary>
-        public string ContentType { get; set; }
-
-        /// <summary>
-        /// Required. This is a user settable property. It is the unique name
-        /// that identifies the attachment, i.e. no two attachments share the
-        /// same id. The id must not exceed 255 characters.
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Required. This is the URL link or file path where the attachment
-        /// resides.
-        /// </summary>
-        public string Media { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the Attachment class.
+        ///     Initializes a new instance of the Attachment class.
         /// </summary>
         public Attachment()
         {
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the Attachment class with required
-        /// arguments.
+        ///     Initializes a new instance of the Attachment class with required
+        ///     arguments.
         /// </summary>
         public Attachment(string id, string contentType, string media)
             : this()
@@ -59,5 +39,24 @@ namespace DocumentDBRestApi.Models
             ContentType = contentType;
             Media = media;
         }
+
+        /// <summary>
+        ///     Required. This is a user settable property. It specifies the
+        ///     content type of the attachment. .
+        /// </summary>
+        public string ContentType { get; set; }
+
+        /// <summary>
+        ///     Required. This is a user settable property. It is the unique name
+        ///     that identifies the attachment, i.e. no two attachments share the
+        ///     same id. The id must not exceed 255 characters.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        ///     Required. This is the URL link or file path where the attachment
+        ///     resides.
+        /// </summary>
+        public string Media { get; set; }
     }
 }

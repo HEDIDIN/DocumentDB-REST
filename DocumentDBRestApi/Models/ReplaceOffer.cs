@@ -12,40 +12,40 @@ namespace DocumentDBRestApi.Models
     public class ReplaceOffer
     {
         /// <summary>
-        /// Required. This is the resource id of the offer.
+        ///     Required. This is the resource id of the offer.
         /// </summary>
         public string Rid { get; set; }
 
         /// <summary>
-        /// Required. The id for the offer resource. It has the same value as
-        /// the _rid for the offer.
+        ///     Required. The id for the offer resource. It has the same value as
+        ///     the _rid for the offer.
         /// </summary>
         public string Id { get; set; }
 
         /// <summary>
-        /// Required. This must be the resource id of the collection associated
-        /// to the offer resource. It cannot be changed. The resource id must
-        /// match collection _rid in the resource property.
+        ///     Required. This must be the resource id of the collection associated
+        ///     to the offer resource. It cannot be changed. The resource id must
+        ///     match collection _rid in the resource property.
         /// </summary>
         public string OfferResourceId { get; set; }
 
         /// <summary>
-        /// Required. This is a user settable property. The valid values are
-        /// S1, S2 and S3. The value must be capitalized
+        ///     Required. This is a user settable property. The valid values are
+        ///     S1, S2 and S3. The value must be capitalized
         /// </summary>
         public string OfferType { get; set; }
 
         /// <summary>
-        /// Required. This must be the self-link of the collection associated
-        /// to the offer resource
+        ///     Required. This must be the self-link of the collection associated
+        ///     to the offer resource
         /// </summary>
         public string Resource { get; set; }
 
         /// <summary>
-        /// Serialize the object
+        ///     Serialize the object
         /// </summary>
         /// <returns>
-        /// Returns the json model for the type ReplaceOffer
+        ///     Returns the json model for the type ReplaceOffer
         /// </returns>
         public virtual JToken SerializeJson(JToken outputObject)
         {

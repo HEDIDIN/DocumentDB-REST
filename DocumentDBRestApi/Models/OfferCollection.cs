@@ -12,12 +12,12 @@ namespace DocumentDBRestApi.Models
     public static class OfferCollection
     {
         /// <summary>
-        /// Deserialize the object
+        ///     Deserialize the object
         /// </summary>
         public static IList<Offer> DeserializeJson(JToken inputObject)
         {
             IList<Offer> deserializedObject = new List<Offer>();
-            foreach (var iListValue in ((JArray)inputObject))
+            foreach (var iListValue in (JArray) inputObject)
             {
                 var offer = new Offer();
                 offer.DeserializeJson(iListValue);

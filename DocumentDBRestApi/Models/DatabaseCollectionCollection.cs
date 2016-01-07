@@ -12,12 +12,12 @@ namespace DocumentDBRestApi.Models
     public static class DatabaseCollectionCollection
     {
         /// <summary>
-        /// Deserialize the object
+        ///     Deserialize the object
         /// </summary>
         public static IList<DatabaseCollection> DeserializeJson(JToken inputObject)
         {
             IList<DatabaseCollection> deserializedObject = new List<DatabaseCollection>();
-            foreach (var iListValue in ((JArray)inputObject))
+            foreach (var iListValue in (JArray) inputObject)
             {
                 var databaseCollection = new DatabaseCollection();
                 databaseCollection.DeserializeJson(iListValue);

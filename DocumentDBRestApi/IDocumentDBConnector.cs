@@ -20,17 +20,17 @@ namespace DocumentDBRestApi
         /// </summary>
         Uri BaseUri
         {
-            get; set; 
+            get; set;
         }
-        
+
         /// <summary>
         /// Credentials for authenticating with the service.
         /// </summary>
         ServiceClientCredentials Credentials
         {
-            get; set; 
+            get; set;
         }
-        
+
         /// <summary>
         /// Create an Attachment
         /// </summary>
@@ -48,16 +48,18 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}..
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.           example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.         
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -67,7 +69,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<AttachmentResponse>> CreateAttachementWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, AttachmentRaw request, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Create a new Collection
         /// </summary>
@@ -76,16 +78,18 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example - Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format. example - <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
         /// </param>
         /// <param name='id'>
         /// Required. This is a user settable property. It is the unique name
@@ -95,18 +99,20 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Collection>> CreateCollectionWithOperationResponseAsync(string ridDB, string authorization, string xMSDate, string xMSVersion, CustomBodyCollection id, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
         /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. For creating a database, the Content-Type header must be
-        /// `application/json`.
+        /// `<c>application/json</c>`.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.  `Fri, 08 Apr 2015 03:52:31 GMT`
+        /// Coordinated Universal Time format.  <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
         /// </param>
         /// <param name='id'>
         /// Required. This is a user settable property. It is the unique name
@@ -116,7 +122,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Database>> CreateDatabaseWithOperationResponseAsync(string authorization, string contentType, string xMSDate, CustomBodyCollection id, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Create a new Document
         /// </summary>
@@ -131,7 +137,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
@@ -139,17 +146,19 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        /// Coordinated Universal Time format. <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Document>> CreateDocumentWithOperationResponseAsync(string ridDB, string ridColl, CustomBody request, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Create a User
         /// </summary>
@@ -161,7 +170,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -173,8 +183,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.          example -
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -184,7 +194,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<User>> CreateUserWithOperationResponseAsync(string ridDB, User request, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Delete a Collection
         /// </summary>
@@ -196,26 +206,29 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.           example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.           example -
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<object>> DeleteCollectionWithOperationResponseAsync(string ridDB, string ridColl, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Delete a Database
         /// </summary>
@@ -225,6 +238,7 @@ namespace DocumentDBRestApi
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
         /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -232,22 +246,24 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.           Example, Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.           
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<object>> DeleteDatabaseWithOperationResponseAsync(string ridDB, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Delete a Document
         /// </summary>
@@ -262,7 +278,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this
+        /// operation.<c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
@@ -270,7 +287,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        /// Coordinated Universal Time format. <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -280,7 +298,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<object>> DeleteDocumentWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// To delete a permission resource, perform a DELETE operation on that
         /// permission resource
@@ -297,9 +315,7 @@ namespace DocumentDBRestApi
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
         /// key and resource tokens are allowed for this operation.
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
-#pragma warning restore 1570
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -307,12 +323,13 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format. example: <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -322,7 +339,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<object>> DeletePermissionWithOperationResponseAsync(string ridDB, string ridPerm, string ridUser, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Delete a User
         /// </summary>
@@ -335,9 +352,7 @@ namespace DocumentDBRestApi
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
         /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
-#pragma warning restore 1570
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -345,12 +360,13 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.          example -
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -360,7 +376,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<object>> DeleteUserWithOperationResponseAsync(string ridDB, string ridUser, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Execute a Stored Procedure
         /// </summary>
@@ -378,7 +394,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Required. The Content-Type header must be
@@ -392,12 +409,13 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - : Fri, 08
-        /// Apr 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.          example - :
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -407,7 +425,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<QueryResponseBody>> ExecuteStoredProcedureWithOperationResponseAsync(string ridDB, string ridColl, string ridProc, QueryRequest request, string authorization, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Get an Attachment from document
         /// </summary>
@@ -425,16 +443,18 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}..
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.           example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.           example -
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -444,7 +464,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<AttachmentRaw>> GetAttachementWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, string ridAttch, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Get a Collection
         /// </summary>
@@ -456,26 +476,29 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.  example - Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format.  example - <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Collection>> GetCollectionByIdWithOperationResponseAsync(string ridDB, string ridColl, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Retrieve a database resource by Id
         /// </summary>
@@ -484,7 +507,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -492,15 +516,18 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is `{user agent name}/{version}`.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.`Fri, 08 Apr 2015 03:52:31 GMT`
+        /// Coordinated Universal Time format. <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use `2015-08-06`
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
         /// </param>
         /// <param name='xMSGatewayversion'>
         /// Required.
@@ -509,17 +536,19 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Database>> GetDatabaseByIdWithOperationResponseAsync(string ridDB, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, string xMSGatewayversion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// List Databases
         /// </summary>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
         /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is `{user agent name}/{version}`.
+        /// request. The recommended format is `<c>>{user agent
+        /// name}/{version}</c>`.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
@@ -527,7 +556,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use `2015-08-06`
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
         /// </param>
         /// <param name='xMSGatewayversion'>
         /// Required. The Microsft Date Gateway version
@@ -536,7 +566,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<IList<DatabaseCollection>>> GetDatabaseListWithOperationResponseAsync(string authorization, string userAgent, string xMSDate, string xMSVersion, string xMSGatewayversion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Get a Document.
         /// </summary>
@@ -551,65 +581,31 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        /// Coordinated Universal Time format. <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Document>> GetDocumentByIdWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, string authorization, string userAgent, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
-        /// <summary>
-        /// Get a User
-        /// </summary>
-        /// <param name='ridDB'>
-        /// Required. The Database Id
-        /// </param>
-        /// <param name='ridUser'>
-        /// Required. The User Id
-        /// </param>
-        /// <param name='authorization'>
-        /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
-        /// </param>
-        /// <param name='contentType'>
-        /// Required. Optional. For creating a database, the Content-Type
-        /// header must be application/json.
-        /// </param>
-        /// <param name='userAgent'>
-        /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
-        /// </param>
-        /// <param name='xMSDate'>
-        /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
-        /// </param>
-        /// <param name='xMSVersion'>
-        /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// Cancellation token.
-        /// </param>
-        Task<HttpOperationResponse<User>> GetUserByIdWithOperationResponseAsync(string ridDB, string ridUser, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <param name='databaseaccount'>
         /// Required. The Database Account Name
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
         /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
-#pragma warning restore 1570
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -621,7 +617,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. Fri, 08 Apr 2015 03:52:31 GMT
+        /// Coordinated Universal Time format. <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -631,7 +628,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<IList<Offer>>> GetListOfOffersWithOperationResponseAsync(string databaseaccount, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Get a list of users resource of a particular database
         /// </summary>
@@ -640,7 +637,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -648,12 +646,13 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}..
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example -Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.          example -
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -663,16 +662,14 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<IList<User>>> GetListOfUsersWithOperationResponseAsync(string ridDB, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <param name='ridOffer'>
         /// Required. The Offer Id
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
         /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
-#pragma warning restore 1570
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -680,12 +677,13 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format. example: <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -695,7 +693,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Offer>> GetOfferWithOperationResponseAsync(string ridOffer, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Performing a GET operation on a specific permission resource
         /// retrieves the permission properties, including the token, for the
@@ -715,9 +713,7 @@ namespace DocumentDBRestApi
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
         /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// type={typeoftoken}&ver={tokenversion}&sig={hashsignature}
-#pragma warning restore 1570
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -729,8 +725,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example- Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format. example- <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -740,25 +736,34 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Permission>> GetPermissionWithOperationResponseAsync(string ridDB, string ridUser, string ridPerm, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
-        /// List Collections
+        /// Get a User
         /// </summary>
         /// <param name='ridDB'>
         /// Required. The Database Id
         /// </param>
+        /// <param name='ridUser'>
+        /// Required. The User Id
+        /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
+        /// </param>
+        /// <param name='contentType'>
+        /// Required. Optional. For creating a database, the Content-Type
+        /// header must be application/json.
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example -Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format.          example -
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -767,8 +772,39 @@ namespace DocumentDBRestApi
         /// <param name='cancellationToken'>
         /// Cancellation token.
         /// </param>
+        Task<HttpOperationResponse<User>> GetUserByIdWithOperationResponseAsync(string ridDB, string ridUser, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// List Collections
+        /// </summary>
+        /// <param name='ridDB'>
+        /// Required. The Database Id
+        /// </param>
+        /// <param name='authorization'>
+        /// Required. The authentication type and signature token. Both master
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
+        /// </param>
+        /// <param name='userAgent'>
+        /// Required. Optional. The string of client user agent performing the
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
+        /// </param>
+        /// <param name='xMSDate'>
+        /// Required. The date of the request The date is expressed in
+        /// Coordinated Universal Time format. example - <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
+        /// </param>
+        /// <param name='xMSVersion'>
+        /// Required. The version of DocumentDB REST service. The latest
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// Cancellation token.
+        /// </param>
         Task<HttpOperationResponse<IList<Collection>>> ListCollectionsWithOperationResponseAsync(string ridDB, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// List Documents
         /// </summary>
@@ -780,7 +816,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
@@ -788,17 +825,141 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        /// Coordinated Universal Time format. <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
-        /// version is used when the header is not provided use 2015-08-06
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
         /// </param>
         /// <param name='cancellationToken'>
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<IList<Document>>> ListDocumentsWithOperationResponseAsync(string ridDB, string ridColl, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
+        /// <param name='ridDB'>
+        /// Required. The Database Id
+        /// </param>
+        /// <param name='ridColl'>
+        /// Required. The Collection Id
+        /// </param>
+        /// <param name='request'>
+        /// Required.
+        /// </param>
+        /// <param name='authorization'>
+        /// Required. The authentication type and signature token. Both master
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
+        /// </param>
+        /// <param name='userAgent'>
+        /// Required. Optional. The string of client user agent performing the
+        /// request.
+        /// </param>
+        /// <param name='xMSDate'>
+        /// Required. The date of the request The date is expressed in
+        /// Coordinated Universal Time format. <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
+        /// </param>
+        /// <param name='xMSVersion'>
+        /// Required. The version of DocumentDB REST service. The latest
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
+        /// </param>
+        /// <param name='contentType'>
+        /// Required. Must be set to application/query+json
+        /// </param>
+        /// <param name='xMSDocumentdbIsquery'>
+        /// Required. Required. This property must be set to true
+        /// </param>
+        /// <param name='xMSMaxItemCount'>
+        /// Required. To page through a result set, set this header to the
+        /// maximum number for items to be returned back in a single page.
+        /// <remarks>Range 1 - 1000 Default value = 100</remarks>
+        /// </param>
+        /// <param name='xMSContinuation'>
+        /// Required. To navigate to the next page of items, set this header to
+        /// the continuation token for the next page.
+        /// </param>
+        /// <param name='xMSDocumentdbQueryEnableScan'>
+        /// Required. Use an index scan to process the query if the right index
+        /// path of type is not available.
+        /// </param>
+        /// <param name='xMSSessionToken'>
+        /// Required. The session token for the request. Used for session
+        /// consistency
+        /// </param>
+        /// <param name='accept'>
+        /// Required. Optional. At the moment, DocumentDB always returns the
+        /// response payload in standard JSON format. The client must be able
+        /// to accept the response body in standard JSON format
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// Cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<QueryResourceResponseBody>> QueryCollectionResourceWithOperationResponseAsync(string ridDB, string ridColl, QueryRequest request, string authorization, string userAgent, string xMSDate, string xMSVersion, string contentType, bool xMSDocumentdbIsquery, string xMSMaxItemCount, string xMSContinuation, bool? xMSDocumentdbQueryEnableScan, string xMSSessionToken, string accept, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <param name='ridDB'>
+        /// Required. The Database Id
+        /// </param>
+        /// <param name='ridColl'>
+        /// Required. The Collection Id
+        /// </param>
+        /// <param name='request'>
+        /// Required.
+        /// </param>
+        /// <param name='authorization'>
+        /// Required. The authentication type and signature token. Both master
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
+        /// </param>
+        /// <param name='userAgent'>
+        /// Required. Optional. The string of client user agent performing the
+        /// request.
+        /// </param>
+        /// <param name='xMSDate'>
+        /// Required. The date of the request The date is expressed in
+        /// Coordinated Universal Time format. <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
+        /// </param>
+        /// <param name='xMSVersion'>
+        /// Required. The version of DocumentDB REST service. The latest
+        /// version is used when the header is not provided use
+        /// <c>2015-08-06</c>
+        /// </param>
+        /// <param name='contentType'>
+        /// Required. Must be set to application/query+json
+        /// </param>
+        /// <param name='xMSDocumentdbIsquery'>
+        /// Required. Required. This property must be set to true
+        /// </param>
+        /// <param name='xMSMaxItemCount'>
+        /// Required. To page through a result set, set this header to the
+        /// maximum number for items to be returned back in a single page.
+        /// <remarks>Range 1 - 1000 Default value = 100</remarks>
+        /// </param>
+        /// <param name='xMSContinuation'>
+        /// Required. To navigate to the next page of items, set this header to
+        /// the continuation token for the next page.
+        /// </param>
+        /// <param name='xMSDocumentdbQueryEnableScan'>
+        /// Required. Use an index scan to process the query if the right index
+        /// path of type is not available.
+        /// </param>
+        /// <param name='xMSSessionToken'>
+        /// Required. The session token for the request. Used for session
+        /// consistency
+        /// </param>
+        /// <param name='accept'>
+        /// Required. Optional. At the moment, DocumentDB always returns the
+        /// response payload in standard JSON format. The client must be able
+        /// to accept the response body in standard JSON format
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// Cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<QueryResourceResponseBody>> QueryDocumentResourceWithOperationResponseAsync(string ridDB, string ridColl, QueryRequest request, string authorization, string userAgent, string xMSDate, string xMSVersion, string contentType, bool xMSDocumentdbIsquery, string xMSMaxItemCount, string xMSContinuation, bool? xMSDocumentdbQueryEnableScan, string xMSSessionToken, string accept, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <param name='databaseaccount'>
         /// Required. The Database Account Name
         /// </param>
@@ -808,18 +969,17 @@ namespace DocumentDBRestApi
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
         /// key and resource tokens are allowed for this operation. example:
-#pragma warning disable 1570
-        /// "type={typeoftoken}&ver={tokenversion}&sig={hashsignature}"
-#pragma warning restore 1570
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format. example: <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -839,7 +999,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<QueryResponseBody>> QueryOfferWithOperationResponseAsync(string databaseaccount, QuerySql request, string authorization, string userAgent, string xMSDate, string xMSVersion, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Query a Permission
         /// </summary>
@@ -854,7 +1014,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Required. The Content-Type header must be
@@ -868,8 +1029,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example - Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format. example - <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -879,7 +1040,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<QueryResponseBody>> QueryPermissionWithOperationResponseAsync(string ridDB, string ridUser, QueryRequest request, string authorization, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Query a Trigger
         /// </summary>
@@ -904,16 +1065,18 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.       example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.       example - <example>Fri,
+        /// 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -923,7 +1086,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<QueryResponseBody>> QueryTriggerWithOperationResponseAsync(string ridDB, string ridColl, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, QueryRequest request, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Query a UDF
         /// </summary>
@@ -938,7 +1101,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Required. The Content-Type header must be
@@ -952,12 +1116,13 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is 
+        /// <c>{user agent name}/{version}</c>
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format. example: <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -967,7 +1132,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<QueryResponseBody>> QueryUdfWithOperationResponseAsync(string ridDB, string ridColl, QueryRequest request, string authorization, string contentType, bool xMSDocumentdbQueryEnableScan, bool xMSDocumentdbIsquery, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Register a Stored Procedure
         /// </summary>
@@ -982,16 +1147,18 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.         -
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -1001,7 +1168,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<StoredProcedure>> RegisterStoredProcedureWithOperationResponseAsync(string ridDB, string ridColl, QueryRequest request, string authorization, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Replace a Document
         /// </summary>
@@ -1016,7 +1183,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
@@ -1024,7 +1192,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.
+        /// Coordinated Universal Time format. <example>Fri, 08 Apr 2015
+        /// 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -1037,7 +1206,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Document>> ReplaceDocumentWithOperationResponseAsync(string ridDB, string ridColl, string ridDoc, string authorization, string userAgent, string xMSDate, string xMSVersion, Document request = null, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <param name='ridOffer'>
         /// Required. The Offer Id
         /// </param>
@@ -1046,7 +1215,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -1054,12 +1224,13 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format. example: <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
@@ -1069,7 +1240,7 @@ namespace DocumentDBRestApi
         /// Cancellation token.
         /// </param>
         Task<HttpOperationResponse<Offer>> ReplaceOfferWithOperationResponseAsync(string ridOffer, ReplaceOffer request, string authorization, string contentType, string userAgent, string xMSDate, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+
         /// <summary>
         /// Replaces the entire user Permission.
         /// </summary>
@@ -1087,7 +1258,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -1095,18 +1267,23 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format. example: Fri, 08 Apr 2015
-        /// 03:52:31 GMT
+        /// Coordinated Universal Time format. example: <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest
         /// version is used when the header is not provided use 2015-08-06
         /// </param>
+        /// <param name='xMSDate'>
+        /// Required. The date of the request The date is expressed in
+        /// Coordinated Universal Time format. example- <example>Fri, 08 Apr
+        /// 2015 03:52:31 GMT</example>
+        /// </param>
         /// <param name='cancellationToken'>
         /// Cancellation token.
         /// </param>
-        Task<HttpOperationResponse<Permission>> ReplacePermissionWithOperationResponseAsync(string ridDB, string ridUser, string ridPerm, Permission request, string authorization, string contentType, string userAgent, string xMSVersion, CancellationToken cancellationToken = default(CancellationToken));
-        
+        Task<HttpOperationResponse<Permission>> ReplacePermissionWithOperationResponseAsync(string ridDB, string ridUser, string ridPerm, Permission request, string authorization, string contentType, string userAgent, string xMSVersion, string xMSDate, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <summary>
         /// Replace a User
         /// </summary>
@@ -1121,7 +1298,8 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='authorization'>
         /// Required. The authentication type and signature token. Both master
-        /// key and resource tokens are allowed for this operation
+        /// key and resource tokens are allowed for this operation.
+        /// <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>
         /// </param>
         /// <param name='contentType'>
         /// Required. Optional. For creating a database, the Content-Type
@@ -1129,12 +1307,13 @@ namespace DocumentDBRestApi
         /// </param>
         /// <param name='userAgent'>
         /// Required. Optional. The string of client user agent performing the
-        /// request. The recommended format is {user agent name}/{version}.
+        /// request. The recommended format is <c>{user agent
+        /// name}/{version}</c>.
         /// </param>
         /// <param name='xMSDate'>
         /// Required. The date of the request The date is expressed in
-        /// Coordinated Universal Time format.          example: - Fri, 08 Apr
-        /// 2015 03:52:31 GMT
+        /// Coordinated Universal Time format.          example: -
+        /// <example>Fri, 08 Apr 2015 03:52:31 GMT</example>
         /// </param>
         /// <param name='xMSVersion'>
         /// Required. The version of DocumentDB REST service. The latest

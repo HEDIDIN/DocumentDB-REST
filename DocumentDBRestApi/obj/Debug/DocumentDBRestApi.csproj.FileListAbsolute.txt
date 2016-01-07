@@ -78,3 +78,5 @@ C:\Users\Howard\Documents\GitHub\DocumentDB-REST\DocumentDBRestApi\bin\System.Th
 C:\Users\Howard\Documents\GitHub\DocumentDB-REST\DocumentDBRestApi\bin\System.Web.Http.xml
 C:\Users\Howard\Documents\GitHub\DocumentDB-REST\DocumentDBRestApi\bin\System.Web.Http.WebHost.xml
 C:\Users\Howard\Documents\GitHub\DocumentDB-REST\DocumentDBRestApi\bin\System.Net.Http.Formatting.xml
+C:\Users\Howard\Documents\GitHub\DocumentDB-REST\DocumentDBRestApi\bin\RestSharp.xml
+C:\Users\Howard\Documents\GitHub\DocumentDB-REST\DocumentDBRestApi\bin\System.IdentityModel.Tokens.Jwt.pdb

@@ -11,15 +11,15 @@ namespace DocumentDBRestApi.Models
     public class CustomBody
     {
         /// <summary>
-        /// Optional. A JSON array of parameters specified as name value pairs.
+        ///     Optional. A JSON array of parameters specified as name value pairs.
         /// </summary>
         public string Custom { get; set; }
 
         /// <summary>
-        /// Serialize the object
+        ///     Serialize the object
         /// </summary>
         /// <returns>
-        /// Returns the json model for the type CustomBody
+        ///     Returns the json model for the type CustomBody
         /// </returns>
         public virtual JToken SerializeJson(JToken outputObject)
         {

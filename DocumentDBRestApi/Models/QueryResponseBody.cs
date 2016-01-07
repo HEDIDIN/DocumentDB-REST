@@ -11,22 +11,22 @@ namespace DocumentDBRestApi.Models
     public class QueryResponseBody
     {
         /// <summary>
-        /// Optional. The number of items returned.
+        ///     Optional. The number of items returned.
         /// </summary>
         public int? Count { get; set; }
 
         /// <summary>
-        /// Optional. The resource id for the collection used within the query
+        ///     Optional. The resource id for the collection used within the query
         /// </summary>
         public string Rid { get; set; }
 
         /// <summary>
-        /// Optional. The array containing the query results.
+        ///     Optional. The array containing the query results.
         /// </summary>
         public string ResourceArray { get; set; }
 
         /// <summary>
-        /// Deserialize the object
+        ///     Deserialize the object
         /// </summary>
         public virtual void DeserializeJson(JToken inputObject)
         {
@@ -34,17 +34,17 @@ namespace DocumentDBRestApi.Models
             var countValue = inputObject["_count"];
             if (countValue != null && countValue.Type != JTokenType.Null)
             {
-                Count = ((int)countValue);
+                Count = (int) countValue;
             }
             var ridValue = inputObject["_rid"];
             if (ridValue != null && ridValue.Type != JTokenType.Null)
             {
-                Rid = ((string)ridValue);
+                Rid = (string) ridValue;
             }
             var resourceArrayValue = inputObject["Resource_array"];
             if (resourceArrayValue != null && resourceArrayValue.Type != JTokenType.Null)
             {
-                ResourceArray = ((string)resourceArrayValue);
+                ResourceArray = (string) resourceArrayValue;
             }
         }
     }

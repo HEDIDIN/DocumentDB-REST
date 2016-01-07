@@ -12,54 +12,15 @@ namespace DocumentDBRestApi.Models
     public class Document
     {
         /// <summary>
-        /// Optional. This is a system generated property that specifies the
-        /// addressable path for the attachments resource.
-        /// </summary>
-        public string Attachments { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property that specifies the
-        /// resource etag required for optimistic concurrency control.
-        /// </summary>
-        public string Etag { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property. The resource Id
-        /// (_rid) is a unique identifier that is also hierarchical per the
-        /// resource stack on the resource model. It is used internally for
-        /// placement and navigation of the document resource.
-        /// </summary>
-        public string Rid { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property. It is the unique
-        /// addressable URI for the resource.
-        /// </summary>
-        public string Self { get; set; }
-
-        /// <summary>
-        /// Optional. This is a system generated property. It specifies the
-        /// last updated timestamp of the resource. The value is a timestamp.
-        /// </summary>
-        public int? Ts { get; set; }
-
-        /// <summary>
-        /// Required. This is a user settable property. It is the unique name
-        /// that identifies the document, i.e. no two documents will share the
-        /// same id within a database. The id must not exceed 255 characters.
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the Document class.
+        ///     Initializes a new instance of the Document class.
         /// </summary>
         public Document()
         {
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the Document class with required
-        /// arguments.
+        ///     Initializes a new instance of the Document class with required
+        ///     arguments.
         /// </summary>
         public Document(string id)
             : this()
@@ -70,50 +31,91 @@ namespace DocumentDBRestApi.Models
             }
             Id = id;
         }
-        
+
         /// <summary>
-        /// Deserialize the object
+        ///     Optional. This is a system generated property that specifies the
+        ///     addressable path for the attachments resource.
+        /// </summary>
+        public string Attachments { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property that specifies the
+        ///     resource etag required for optimistic concurrency control.
+        /// </summary>
+        public string Etag { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property. The resource Id
+        ///     (_rid) is a unique identifier that is also hierarchical per the
+        ///     resource stack on the resource model. It is used internally for
+        ///     placement and navigation of the document resource.
+        /// </summary>
+        public string Rid { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property. It is the unique
+        ///     addressable URI for the resource.
+        /// </summary>
+        public string Self { get; set; }
+
+        /// <summary>
+        ///     Optional. This is a system generated property. It specifies the
+        ///     last updated timestamp of the resource. The value is a timestamp.
+        /// </summary>
+        public int? Ts { get; set; }
+
+        /// <summary>
+        ///     Required. This is a user settable property. It is the unique name
+        ///     that identifies the document, i.e. no two documents will share the
+        ///     same id within a database. The id must not exceed 255 characters.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
+        ///     Deserialize the object
         /// </summary>
         public virtual void DeserializeJson(JToken inputObject)
         {
-            if (inputObject == null || inputObject.Type == JTokenType.Null) return;
-            var attachmentsValue = inputObject["_attachments"];
-            if (attachmentsValue != null && attachmentsValue.Type != JTokenType.Null)
+            if (inputObject != null && inputObject.Type != JTokenType.Null)
             {
-                Attachments = ((string)attachmentsValue);
-            }
-            var etagValue = inputObject["_etag"];
-            if (etagValue != null && etagValue.Type != JTokenType.Null)
-            {
-                Etag = ((string)etagValue);
-            }
-            var ridValue = inputObject["_rid"];
-            if (ridValue != null && ridValue.Type != JTokenType.Null)
-            {
-                Rid = ((string)ridValue);
-            }
-            var selfValue = inputObject["_self"];
-            if (selfValue != null && selfValue.Type != JTokenType.Null)
-            {
-                Self = ((string)selfValue);
-            }
-            var tsValue = inputObject["_ts"];
-            if (tsValue != null && tsValue.Type != JTokenType.Null)
-            {
-                Ts = ((int)tsValue);
-            }
-            var idValue = inputObject["id"];
-            if (idValue != null && idValue.Type != JTokenType.Null)
-            {
-                Id = ((string)idValue);
+                var attachmentsValue = inputObject["_attachments"];
+                if (attachmentsValue != null && attachmentsValue.Type != JTokenType.Null)
+                {
+                    Attachments = (string) attachmentsValue;
+                }
+                var etagValue = inputObject["_etag"];
+                if (etagValue != null && etagValue.Type != JTokenType.Null)
+                {
+                    Etag = (string) etagValue;
+                }
+                var ridValue = inputObject["_rid"];
+                if (ridValue != null && ridValue.Type != JTokenType.Null)
+                {
+                    Rid = (string) ridValue;
+                }
+                var selfValue = inputObject["_self"];
+                if (selfValue != null && selfValue.Type != JTokenType.Null)
+                {
+                    Self = (string) selfValue;
+                }
+                var tsValue = inputObject["_ts"];
+                if (tsValue != null && tsValue.Type != JTokenType.Null)
+                {
+                    Ts = (int) tsValue;
+                }
+                var idValue = inputObject["id"];
+                if (idValue != null && idValue.Type != JTokenType.Null)
+                {
+                    Id = (string) idValue;
+                }
             }
         }
-        
+
         /// <summary>
-        /// Serialize the object
+        ///     Serialize the object
         /// </summary>
         /// <returns>
-        /// Returns the json model for the type Document
+        ///     Returns the json model for the type Document
         /// </returns>
         public virtual JToken SerializeJson(JToken outputObject)
         {
@@ -123,7 +125,7 @@ namespace DocumentDBRestApi.Models
             }
             if (Id == null)
             {
-                throw new ArgumentNullException(nameof(Id));
+                throw new ArgumentNullException("ID");
             }
             if (Attachments != null)
             {

@@ -14,52 +14,52 @@ namespace DocumentDBRestApi.Models
     public class QueryRequest
     {
         /// <summary>
-        /// Required. A JSON array of parameters specified as name value pairs.
-        /// The parameter array can contain from zero to many parameters.Each
-        /// parameter must have the following values:name: the name of the
-        /// parameter. Parameter names must be valid string literals and begin
-        /// with ‘@’.value: the value of the parameter. Can be any valid JSON
-        /// value (string, number, object, array, Boolean or null).
-        /// </summary>
-        public IList<string> Parameters { get; set; }
-
-        /// <summary>
-        /// Required. The SQL query string for the query
-        /// </summary>
-        public string QueryString { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the QueryRequest class.
+        ///     Initializes a new instance of the QueryRequest class.
         /// </summary>
         public QueryRequest()
         {
             Parameters = new LazyList<string>();
         }
-        
+
         /// <summary>
-        /// Initializes a new instance of the QueryRequest class with required
-        /// arguments.
+        ///     Initializes a new instance of the QueryRequest class with required
+        ///     arguments.
         /// </summary>
-        public QueryRequest(string queryString, IList<string> parameters)
+        public QueryRequest(string query, IList<string> parameters)
             : this()
         {
-            if (queryString == null)
+            if (query == null)
             {
-                throw new ArgumentNullException(nameof(queryString));
+                throw new ArgumentNullException(nameof(query));
             }
             if (parameters == null)
             {
                 throw new ArgumentNullException(nameof(parameters));
             }
-            QueryString = queryString;
+            Query = query;
             Parameters = parameters;
         }
-        
+
         /// <summary>
-        /// Serialize the object
+        ///     Required. A JSON array of parameters specified as name value pairs.
+        ///     The parameter array can contain from zero to many parameters.Each
+        ///     parameter must have the following values:name: the name of the
+        ///     parameter. Parameter names must be valid string literals and begin
+        ///     with ‘@’.value: the value of the parameter. Can be any valid JSON
+        ///     value (string, number, object, array, Boolean or null).
+        /// </summary>
+        public IList<string> Parameters { get; set; }
+
+        /// <summary>
+        ///     Required. The SQL query string for the query
+        /// </summary>
+        public string Query { get; set; }
+
+        /// <summary>
+        ///     Serialize the object
         /// </summary>
         /// <returns>
-        /// Returns the json model for the type QueryRequest
+        ///     Returns the json model for the type QueryRequest
         /// </returns>
         public virtual JToken SerializeJson(JToken outputObject)
         {
@@ -67,31 +67,36 @@ namespace DocumentDBRestApi.Models
             {
                 outputObject = new JObject();
             }
-            var parameters = Parameters as ILazyCollection;
-            if (parameters != null && parameters.IsInitialized == false || Parameters == null)
+            var collection = Parameters as ILazyCollection;
+            if (collection != null && collection.IsInitialized == false ||
+                Parameters == null)
             {
                 throw new ArgumentNullException(nameof(Parameters));
             }
-            if (QueryString == null)
+            if (Query == null)
             {
-                throw new ArgumentNullException(nameof(QueryString));
+                throw new ArgumentNullException(nameof(Query));
             }
-            var collection = (ILazyCollection) Parameters;
-            if (collection != null && !collection.IsInitialized)
+            if (Parameters != null)
             {
-                var parametersSequence = new JArray();
-                outputObject["parameters"] = parametersSequence;
-                foreach (var parametersItem in Parameters)
+                var lazyCollection = Parameters as ILazyCollection;
+                if (lazyCollection != null == false ||
+                    (Parameters as ILazyCollection).IsInitialized)
                 {
-                    if (parametersItem != null)
+                    var parametersSequence = new JArray();
+                    outputObject["parameters"] = parametersSequence;
+                    foreach (var parametersItem in Parameters)
                     {
-                        parametersSequence.Add(parametersItem);
+                        if (parametersItem != null)
+                        {
+                            parametersSequence.Add(parametersItem);
+                        }
                     }
                 }
             }
-            if (QueryString != null)
+            if (Query != null)
             {
-                outputObject["QueryString"] = QueryString;
+                outputObject["query"] = Query;
             }
             return outputObject;
         }

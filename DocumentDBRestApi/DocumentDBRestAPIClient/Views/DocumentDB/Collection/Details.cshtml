@@ -1,0 +1,91 @@
+﻿@model DocumentDBRestAPIClient.Models.Collection
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Collection Details</h2>
+
+<div>
+    <h4>Collection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Conflicts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conflicts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Etag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Self)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Self)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sprocs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sprocs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Triggers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Triggers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Udfs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Udfs)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

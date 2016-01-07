@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DocumentDBRestAPIClient.Models.Database>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List Databases</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Colls)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Etag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Self)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Users)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Colls)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Etag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Self)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
