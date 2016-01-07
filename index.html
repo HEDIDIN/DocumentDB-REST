@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Documentdb-rest by HEDIDIN</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Documentdb-rest</h1>
+        <h2>REST API for DocumentDB</h2>
+        <a href="https://github.com/HEDIDIN/DocumentDB-REST" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p>Copyright © 2016, Howard S. Edidin</p>
+
+<h1>
+<a id="documentdb-rest" class="anchor" href="#documentdb-rest" aria-hidden="true"><span class="octicon octicon-link"></span></a>DocumentDB-REST</h1>
+
+<p>Microsoft Azure's DocumentDB is a great PaaS NoSQL database.  It supports Stored Procedures, User Defined Functions (UDF) and Triggers. A REST API is directly available, but a API Connector is not available.  This project started off as an API Connector. </p>
+
+<p>I started off trying to duplicate all the DocumentDB published REST API in Swagger. I used SwaggerHub to author the Swagger JSON file.
+I then used the <strong>Add REST API</strong> function in VS 2015 to generate the code for my API Application. </p>
+
+<h2>
+<a id="source-code" class="anchor" href="#source-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Source code</h2>
+
+<ul>
+<li><a href="https://github.com/HEDIDIN/DocumentDB-REST/blob/master/HEDIDIN-DocumentDBConnector-1.0.6-swagger.json">Swagger</a></li>
+<li><a href="https://github.com/HEDIDIN/DocumentDB-REST/tree/master/DocumentDBRestApi">Source Repository</a></li>
+</ul>
+
+<h3>
+<a id="working" class="anchor" href="#working" aria-hidden="true"><span class="octicon octicon-link"></span></a>Working</h3>
+
+<p>The flowing operations are currently working:</p>
+
+<ul>
+<li>Get an Offer</li>
+<li>List Offers</li>
+<li>Replace an Offer</li>
+<li>Querying Offers</li>
+<li>Create a Database</li>
+<li>Get a Database</li>
+<li>List Databases</li>
+<li>Delete a Database</li>
+<li>Create a User</li>
+<li>Get a User</li>
+<li>List Users</li>
+<li>Delete a User</li>
+<li>Create a Permission</li>
+<li>Get a Permission</li>
+<li>List Permissions</li>
+<li>Replace a Permission</li>
+<li>Delete a Permission</li>
+<li>Create a Document</li>
+<li>Get a Document</li>
+<li>List Documents</li>
+<li>Replace a Document</li>
+<li>Delete a Document</li>
+<li>Create an Attachment</li>
+<li>Get an attachment</li>
+<li>Create a Collection</li>
+<li>Get a Collection</li>
+<li>List Collections</li>
+<li>Delete a Collection</li>
+<li>Register a Stored Procedure</li>
+<li>Execute a stored procedure</li>
+<li>Query a UDF</li>
+<li>Query a Trigger</li>
+<li>Query a Collection Resource</li>
+<li>Query a Document Resource</li>
+<li>List stored procedures</li>
+</ul>
+
+<h3>
+<a id="unimplemented" class="anchor" href="#unimplemented" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unimplemented</h3>
+
+<ul>
+<li>Auto generation of the Authorization Header to populate the header parameter</li>
+<li>Create a trigger</li>
+<li>Replace a trigger</li>
+<li>Delete a trigger</li>
+<li>List triggers</li>
+<li>Create a UDF</li>
+<li>Replace a UDF</li>
+<li>Delete a UDF</li>
+<li>Replace an attachment</li>
+<li>List attachments</li>
+<li>Delete attachments</li>
+<li>Replace a stored procedure</li>
+<li>Delete a stored procedure</li>
+<li>Query stored procedures</li>
+<li>Security for accessing the API</li>
+</ul>
+
+<h3>
+<a id="future-functionality" class="anchor" href="#future-functionality" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future Functionality</h3>
+
+<ul>
+<li>Enumeration of stored procedures to select from for Execute a stored procedure. 
+
+<ul>
+<li>This should be a drop down list on the API Docs</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="configure-swagger" class="anchor" href="#configure-swagger" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure Swagger</h2>
+
+<p>You will need to modify <code>YourDocumentDBAccount.documents.azure.com:443</code> in the Swagger file
+Replace <code>YourDocumentDBAccount</code> with your <em>DocumentDB Account Name</em></p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The VS 2015 Project was added. The project is an API App.  The code has ben refactored using ReSharper.
+You will need to restore the packages. </p>
+
+<p>The <code>DocumentDBConnector.cs</code> is the base class. </p>
+
+<p>The <code>DocumentDbAccount</code> public property is required. This is the same value as <code>YourDocumentDBAccount</code></p>
+
+<h2>
+<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changelog</h2>
+
+<ul>
+<li>1.0.0 - 2015-12-14 - Initial Release</li>
+<li>1.0.1 - 2016-01-01 - Reviewed Documentation</li>
+<li>1.0.2 - 2016-02-01 - Added Query a Resource to the Unimplemented list</li>
+<li>1.0.3 - 2016-03-01 - Added Query Collection Resource and Query Document Resource; Added details to Operation Descriptions including links to external documentation to the Swagger. Source code has not been updated</li>
+</ul>
+
+<h2>
+<a id="contributing-to-documentdb-rest" class="anchor" href="#contributing-to-documentdb-rest" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing to DocumentDB-REST</h2>
+
+<p>I am willing to accept pull requests that implements any unimplemented functionality listed as "Unimplemented" above.
+I would also like to hear any feedback for people using it.</p>
+
+<p><a href="./LICENSE">LICENSE</a></p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/HEDIDIN/DocumentDB-REST/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/HEDIDIN/DocumentDB-REST/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/HEDIDIN/DocumentDB-REST"></a> is maintained by <a href="https://github.com/HEDIDIN">HEDIDIN</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
