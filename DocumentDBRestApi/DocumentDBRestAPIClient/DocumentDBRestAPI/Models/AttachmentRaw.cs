@@ -97,7 +97,7 @@ namespace DocumentDBRestAPIClient.Models
             }
             if (ContentType == null)
             {
-                throw new ArgumentNullException(@"ContentType");
+                throw new ArgumentNullException(nameof(ContentType));
             }
             if (Slug == null)
             {

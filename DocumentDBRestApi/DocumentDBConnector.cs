@@ -299,9 +299,11 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage();
-            httpRequest.Method = HttpMethod.Post;
-            httpRequest.RequestUri = new Uri(url);
+            var httpRequest = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(url)
+            };
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
@@ -474,9 +476,11 @@ namespace DocumentDBRestApi
             url = url.Replace(" ", "%20");
 
             // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage();
-            httpRequest.Method = HttpMethod.Post;
-            httpRequest.RequestUri = new Uri(url);
+            var httpRequest = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(url)
+            };
 
             // Set Headers
             httpRequest.Headers.Add("Authorization", authorization);
@@ -2941,7 +2945,10 @@ namespace DocumentDBRestApi
                     Request = httpRequest,
                     Response = httpResponse,
                     Body = null
+
                 };
+                
+
                 if (shouldTrace)
                 {
                     ServiceClientTracing.Error(invocationId, ex);

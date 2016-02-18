@@ -3,7 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.Rest;
+using System.Linq;
+using Microsoft.WindowsAzure.Common.Internals;
 using Newtonsoft.Json.Linq;
 
 namespace DocumentDBRestAPIClient.Models
@@ -111,8 +112,8 @@ namespace DocumentDBRestAPIClient.Models
             {
                 throw new ArgumentNullException(nameof(Id));
             }
-            if (PermissionMode is ILazyCollection<string> &&
-                ((ILazyCollection<string>)PermissionMode).IsInitialized == false || PermissionMode == null)
+            var mode = PermissionMode as ILazyCollection;
+            if (mode != null && !mode.IsInitialized || PermissionMode == null)
             {
                 throw new ArgumentNullException(nameof(PermissionMode));
             }
@@ -146,17 +147,15 @@ namespace DocumentDBRestAPIClient.Models
             }
             if (PermissionMode != null)
             {
-                if (PermissionMode is ILazyCollection<string> == false ||
-                    ((ILazyCollection<string>)PermissionMode).IsInitialized)
+                var collection = PermissionMode as ILazyCollection;
+                if (collection != null == false ||
+                    ((ILazyCollection) PermissionMode).IsInitialized)
                 {
                     var permissionModeSequence = new JArray();
                     outputObject["permissionMode"] = permissionModeSequence;
-                    foreach (var permissionModeItem in PermissionMode)
+                    foreach (var permissionModeItem in PermissionMode.Where(permissionModeItem => permissionModeItem != null))
                     {
-                        if (permissionModeItem != null)
-                        {
-                            permissionModeSequence.Add(permissionModeItem);
-                        }
+                        permissionModeSequence.Add(permissionModeItem);
                     }
                 }
             }

@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentDBRestApi", "Docume
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentDBRestAPIClient", "DocumentDBRestAPIClient\DocumentDBRestAPIClient.csproj", "{F40B8C1B-2331-41EE-B7F4-9340DF6BD7E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocDBAPIRest", "..\DocDBAPIRest\DocDBAPIRest.csproj", "{371F76A4-3830-413D-8164-8FF1C83B7685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocDbRestAPI", "DocDbRestAPI\DocDbRestAPI.csproj", "{A1BEA550-A825-42E7-9FD7-A8913CF94CFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{F40B8C1B-2331-41EE-B7F4-9340DF6BD7E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F40B8C1B-2331-41EE-B7F4-9340DF6BD7E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F40B8C1B-2331-41EE-B7F4-9340DF6BD7E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{371F76A4-3830-413D-8164-8FF1C83B7685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{371F76A4-3830-413D-8164-8FF1C83B7685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{371F76A4-3830-413D-8164-8FF1C83B7685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{371F76A4-3830-413D-8164-8FF1C83B7685}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1BEA550-A825-42E7-9FD7-A8913CF94CFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1BEA550-A825-42E7-9FD7-A8913CF94CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1BEA550-A825-42E7-9FD7-A8913CF94CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1BEA550-A825-42E7-9FD7-A8913CF94CFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
