@@ -50,11 +50,14 @@ The flowing operations are currently working:
 * Delete a Collection
 * Register a Stored Procedure
 * Execute a stored procedure
+* List stored procedures
+* Replace a stored procedure
+* Delete a stored procedure
 * Query a UDF
 * Query a Trigger
 * Query a Collection Resource
 * Query a Document Resource
-* List stored procedures
+
 
 
 ### Unimplemented ###
@@ -70,9 +73,6 @@ The flowing operations are currently working:
 * Replace an attachment
 * List attachments
 * Delete attachments
-* Replace a stored procedure
-* Delete a stored procedure
-* Query stored procedures
 * Security for accessing the API
 
 ### Future Functionality ###
@@ -101,6 +101,7 @@ The `DocumentDbAccount` public property is required. This is the same value as `
 * 1.0.1 - 2016-01-01 - Reviewed Documentation
 * 1.0.2 - 2016-02-01 - Added Query a Resource to the Unimplemented list
 * 1.0.3 - 2016-03-01 - Added Query Collection Resource and Query Document Resource; Added details to Operation Descriptions including links to external documentation to the Swagger. Source code has not been updated
+* 1.0.4 - 2016-03-02 - Added List stored procedures, Replace a stored procedure, Delete a stored procedure
 
 
 ## Contributing to DocumentDB-REST ##
