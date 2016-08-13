@@ -1969,12 +1969,6 @@
             "$ref" : "#/definitions/QueryRequest"
           }
         }, {
-          "name" : "Authorization",
-          "type" : "string",
-          "in" : "header",
-          "description" : "The authentication type and signature token. Both master key and resource tokens are allowed for this operation.  <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>",
-          "required" : true
-        }, {
           "name" : "User-Agent",
           "type" : "string",
           "in" : "header",
