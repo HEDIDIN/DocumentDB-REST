@@ -1,18 +1,18 @@
 {
   "swagger" : "2.0",
   "info" : {
+    "description" : "Azure API Connector for DocumentDB",
     "version" : "1.0.6",
     "title" : "DocumentDBConnector",
     "contact" : {
-      "url" : "http://edidingroup.net",
       "name" : "Howard S. Edidin",
+      "url" : "http://edidingroup.net",
       "email" : "hedidin@edidingroup.net"
     },
     "license" : {
-      "url" : "https://github.com/HEDIDIN/DocumentDB-REST/blob/master/LICENSE",
-      "name" : "Howard S. Edidin"
-    },
-    "description" : "Azure API Connector for DocumentDB"
+      "name" : "Howard S. Edidin",
+      "url" : "https://github.com/HEDIDIN/DocumentDB-REST/blob/master/LICENSE"
+    }
   },
   "host" : "[databaseaccount].documents.azure.com:443",
   "basePath" : "/dbs",
@@ -62,22 +62,22 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is {user agent name}/{version}.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is {user agent name}/{version}."
+          "type" : "string"
         }, {
           "name" : "x-ms-version",
-          "type" : "string",
           "in" : "header",
+          "description" : "The version of DocumentDB REST service. The latest version is used when the header is not provided use 2015-08-06",
           "required" : true,
-          "description" : "The version of DocumentDB REST service. The latest version is used when the header is not provided use 2015-08-06"
+          "type" : "string"
         }, {
           "name" : "x-ms-gatewayversion",
-          "description" : "The Microsft Date Gateway version",
-          "type" : "string",
           "in" : "header",
+          "description" : "The Microsft Date Gateway version",
           "required" : true,
+          "type" : "string",
           "default" : "version=1.5.35.1"
         } ],
         "responses" : {
@@ -107,11 +107,11 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "For creating a database, the Content-Type header must be application/json.",
           "required" : true,
-          "default" : "application/json",
-          "description" : "For creating a database, the Content-Type header must be application/json."
+          "type" : "string",
+          "default" : "application/json"
         } ],
         "responses" : {
           "201" : {
@@ -135,6 +135,218 @@
         }
       }
     },
+    "/offers/{rid-offer}" : {
+      "get" : {
+        "tags" : [ "Offer" ],
+        "summary" : "GetOfferById",
+        "operationId" : "GetOffer",
+        "consumes" : [ ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "rid-offer",
+          "in" : "path",
+          "description" : "The Offer Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "User-Agent",
+          "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful",
+            "schema" : {
+              "$ref" : "#/definitions/Offer"
+            }
+          },
+          "400" : {
+            "description" : "The JSON body is invalid. Check for missing curly brackets or quotes."
+          },
+          "401" : {
+            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
+          },
+          "403" : {
+            "description" : "The authorization token has expired."
+          },
+          "404" : {
+            "description" : "The offer is no longer a resource."
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Offer" ],
+        "summary" : "Replace an Offer",
+        "operationId" : "ReplaceOffer",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "rid-offer",
+          "in" : "path",
+          "description" : "The Offer Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "Request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ReplaceOffer"
+          }
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "User-Agent",
+          "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The replace operation was successful",
+            "schema" : {
+              "$ref" : "#/definitions/Offer"
+            }
+          },
+          "400" : {
+            "description" : "The override set in the x-ms-consistency-level header is stronger than the one set during account creation."
+          },
+          "401" : {
+            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
+          },
+          "403" : {
+            "description" : "The authorization token has expired."
+          },
+          "404" : {
+            "description" : "The offer is no longer a resource."
+          }
+        }
+      }
+    },
+    "/{databaseaccount}.documents.azure.com/offers" : {
+      "get" : {
+        "tags" : [ "Offer" ],
+        "summary" : "Get List of Offers",
+        "operationId" : "GetListOfOffers",
+        "consumes" : [ ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "databaseaccount",
+          "in" : "path",
+          "description" : "The Database Account Name",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "User-Agent",
+          "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Offer"
+              }
+            }
+          },
+          "401" : {
+            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
+          },
+          "403" : {
+            "description" : "The authorization token expired."
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Offer" ],
+        "summary" : "Query an Offer",
+        "operationId" : "QueryOffer",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "databaseaccount",
+          "in" : "path",
+          "description" : "The Database Account Name",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "Request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/QuerySql"
+          }
+        }, {
+          "name" : "User-Agent",
+          "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "description" : "Required. The Content-Type header must be application/json.",
+          "required" : true,
+          "type" : "string",
+          "default" : "application/query+json"
+        }, {
+          "name" : "x-ms-documentdb-query-enable-scan",
+          "in" : "header",
+          "required" : true,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "x-ms-documentdb-isquery",
+          "in" : "header",
+          "required" : true,
+          "type" : "boolean",
+          "default" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful",
+            "schema" : {
+              "$ref" : "#/definitions/QueryResponseBody"
+            }
+          },
+          "400" : {
+            "description" : "The JSON body is invalid. Check for missing curly brackets or quotes."
+          },
+          "401" : {
+            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
+          },
+          "403" : {
+            "description" : "The authorization token has expired."
+          },
+          "404" : {
+            "description" : "The offer is no longer a resource."
+          }
+        }
+      }
+    },
     "/{rid-db}" : {
       "get" : {
         "tags" : [ "Database" ],
@@ -151,20 +363,20 @@
           "type" : "string"
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json`.",
           "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json`."
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "required" : false,
+          "type" : "string"
         }, {
           "name" : "x-ms-gatewayversion",
-          "type" : "string",
           "in" : "header",
           "required" : true,
+          "type" : "string",
           "default" : "version=1.5.35.1"
         } ],
         "responses" : {
@@ -200,15 +412,15 @@
           "type" : "string"
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
           "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "204" : {
@@ -227,6 +439,43 @@
       }
     },
     "/{rid-db}/colls" : {
+      "get" : {
+        "tags" : [ "Collection" ],
+        "summary" : "List Collections",
+        "description" : "**List Collections**\n- Performing a GET on the collections resource of a particular database, i.e. the colls URI path, returns a list of the users in the database",
+        "operationId" : "ListCollections",
+        "consumes" : [ ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "rid-db",
+          "in" : "path",
+          "description" : "The Database ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "User-Agent",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Collection"
+              }
+            }
+          },
+          "401" : {
+            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
+          },
+          "403" : {
+            "description" : "The authorization token has expired"
+          }
+        }
+      },
       "post" : {
         "tags" : [ "Collection" ],
         "summary" : "Create a Collection",
@@ -236,20 +485,20 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "Authorization",
-          "description" : "The authentication type and signature token. Both master key and resource tokens are allowed for this operation. <c>>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>",
           "in" : "header",
-          "type" : "string",
-          "required" : true
+          "description" : "The authentication type and signature token. Both master key and resource tokens are allowed for this operation. <c>>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>",
+          "required" : true,
+          "type" : "string"
         }, {
+          "in" : "body",
           "name" : "id",
           "description" : "This is a user settable property. It is the unique name that identifies the collection",
-          "in" : "body",
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/CustomBodyCollection"
@@ -273,43 +522,6 @@
           },
           "404" : {
             "description" : "The document is no longer a resource, i.e. the resource was deleted."
-          }
-        }
-      },
-      "get" : {
-        "tags" : [ "Collection" ],
-        "summary" : "List Collections",
-        "description" : "**List Collections**\n- Performing a GET on the collections resource of a particular database, i.e. the colls URI path, returns a list of the users in the database",
-        "operationId" : "ListCollections",
-        "consumes" : [ ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "rid-db",
-          "description" : "The Database ID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "User-Agent",
-          "type" : "string",
-          "in" : "header",
-          "required" : false
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The operation was successful.",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Collection"
-              }
-            }
-          },
-          "401" : {
-            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
-          },
-          "403" : {
-            "description" : "The authorization token has expired"
           }
         }
       }
@@ -336,9 +548,9 @@
           "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -379,10 +591,10 @@
           "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>>{user agent name}/{version}</c>. ",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>>{user agent name}/{version}</c>. "
+          "type" : "string"
         } ],
         "responses" : {
           "204" : {
@@ -400,6 +612,218 @@
         }
       }
     },
+    "/{rid-db}/colls/{rid-coll}/" : {
+      "post" : {
+        "tags" : [ "Resource" ],
+        "summary" : "Perform a query on a Collection Resource",
+        "description" : "- Execute a POST method against a resource path using JSON with the \"query\" property set to the SQL query string, and the \"parameters\" property set to the array of optional parameter values.\n- Set the x-ms-documentdb-isquery header to true.\n- Set the Content-Type header to application/query+json.\n- [DocumentDB SQL query cheat sheet](https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query-cheat-sheet/)",
+        "operationId" : "QueryCollectionResource",
+        "consumes" : [ "application/query+json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "rid-db",
+          "in" : "path",
+          "description" : "The Database Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "rid-coll",
+          "in" : "path",
+          "description" : "The Collection ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "Request",
+          "description" : "The Query Body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/QueryRequest"
+          }
+        }, {
+          "name" : "User-Agent",
+          "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "description" : "Must be set to application/query+json",
+          "required" : true,
+          "type" : "string",
+          "default" : "application/query+json"
+        }, {
+          "name" : "x-ms-documentdb-isquery",
+          "in" : "header",
+          "description" : "This property must be set to true",
+          "required" : true,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "x-ms-max-item-count",
+          "in" : "header",
+          "description" : "To page through a result set, set this header to the maximum number for items to be returned back in a single page. <remarks>Range 1 - 1000 Default value = 100</remarks>",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "x-ms-continuation",
+          "in" : "header",
+          "description" : "To navigate to the next page of items, set this header to the continuation token for the next page.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "x-ms-documentdb-query-enable-scan",
+          "in" : "header",
+          "description" : "Use an index scan to process the query if the right index path of type is not available.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "x-ms-session-token",
+          "in" : "header",
+          "description" : "The session token for the request. Used for session consistency",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "Accept",
+          "in" : "header",
+          "description" : "Optional. At the moment, DocumentDB always returns the response payload in standard JSON format. The client must be able to accept the response body in standard JSON format",
+          "required" : false,
+          "type" : "string",
+          "default" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/QueryResourceResponseBody"
+            }
+          },
+          "400" : {
+            "description" : "The override set in the x-ms-consistency-level header is stronger than the one set during account creation."
+          },
+          "401" : {
+            "description" : "The Authorization or x-ms-date header is not set. <c>401</c> is also returned when the Authorization header is set to an invalid authorization token"
+          },
+          "403" : {
+            "description" : "The authorization token expired."
+          },
+          "404" : {
+            "description" : "The document is no longer a resource, i.e. the resource was deleted."
+          }
+        }
+      }
+    },
+    "/{rid-db}/colls/{rid-coll}/doc" : {
+      "post" : {
+        "tags" : [ "Resource" ],
+        "summary" : "Perform a Document query",
+        "description" : "- Execute a POST method against a resource path using JSON with the \"query\" property set to the SQL query string, and the \"parameters\" property set to the array of optional parameter values.\n- Set the x-ms-documentdb-isquery header to true.\n- Set the Content-Type header to application/query+json.\n- [DocumentDB SQL query cheat sheet](https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query-cheat-sheet/)",
+        "operationId" : "QueryDocumentResource",
+        "consumes" : [ "application/query+json", "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "rid-db",
+          "in" : "path",
+          "description" : "The Database Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "rid-coll",
+          "in" : "path",
+          "description" : "The Collection ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "Request",
+          "description" : "The Query Body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/QueryRequest"
+          }
+        }, {
+          "name" : "User-Agent",
+          "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "x-ms-date",
+          "in" : "header",
+          "description" : "The date of the request The date is expressed in Coordinated Universal Time format. <example>Fri, 08 Apr 2015 03:52:31 GMT</example>",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Content-Type",
+          "in" : "header",
+          "description" : "Must be set to application/query+json",
+          "required" : true,
+          "type" : "string",
+          "default" : "application/query+json"
+        }, {
+          "name" : "x-ms-documentdb-isquery",
+          "in" : "header",
+          "description" : "This property must be set to true",
+          "required" : true,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "x-ms-max-item-count",
+          "in" : "header",
+          "description" : "To page through a result set, set this header to the maximum number for items to be returned back in a single page. <remarks>Range 1 - 1000 Default value = 100</remarks>",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "x-ms-continuation",
+          "in" : "header",
+          "description" : "To navigate to the next page of items, set this header to the continuation token for the next page.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "x-ms-documentdb-query-enable-scan",
+          "in" : "header",
+          "description" : "Use an index scan to process the query if the right index path of type is not available.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "x-ms-session-token",
+          "in" : "header",
+          "description" : "The session token for the request. Used for session consistency",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "Accept",
+          "in" : "header",
+          "description" : "Optional. At the moment, DocumentDB always returns the response payload in standard JSON format. The client must be able to accept the response body in standard JSON format",
+          "required" : false,
+          "type" : "string",
+          "default" : "application/json"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/QueryResourceResponseBody"
+            }
+          },
+          "400" : {
+            "description" : "The override set in the x-ms-consistency-level header is stronger than the one set during account creation."
+          },
+          "401" : {
+            "description" : "The Authorization or x-ms-date header is not set. <c>401</c> is also returned when the Authorization header is set to an invalid authorization token"
+          },
+          "403" : {
+            "description" : "The authorization token expired."
+          },
+          "404" : {
+            "description" : "The document is no longer a resource, i.e. the resource was deleted."
+          }
+        }
+      }
+    },
     "/{rid-db}/colls/{rid-coll}/docs" : {
       "get" : {
         "tags" : [ "Document" ],
@@ -410,22 +834,22 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request."
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -457,14 +881,14 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
@@ -476,10 +900,10 @@
           }
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request."
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -513,27 +937,27 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-doc",
-          "description" : "The Document ID",
           "in" : "path",
+          "description" : "The Document ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
-          "required" : true
+          "required" : true,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -565,20 +989,20 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-doc",
-          "description" : "The Document ID",
           "in" : "path",
+          "description" : "The Document ID",
           "required" : true,
           "type" : "string"
         }, {
@@ -590,10 +1014,10 @@
           }
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request."
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -631,26 +1055,26 @@
         "produces" : [ ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-doc",
-          "description" : "The Document ID",
           "in" : "path",
+          "description" : "The Document ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "User-Agent",
-          "description" : "Optional. The string of client user agent performing the request.",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request.",
           "required" : false,
           "type" : "string"
         } ],
@@ -670,69 +1094,6 @@
         }
       }
     },
-    "/{rid-db}/colls/{rid-coll}/docs/{rid-doc}/attachments/{rid-attch}" : {
-      "get" : {
-        "tags" : [ "Attachment" ],
-        "summary" : "Get an Attachment",
-        "description" : "**Get an Attachment from a document**",
-        "operationId" : "GetAttachement",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json", "image/jpeg", "application/dicom" ],
-        "parameters" : [ {
-          "name" : "rid-db",
-          "description" : "The Database Id",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "rid-coll",
-          "description" : "The Collection ID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "rid-doc",
-          "description" : "The Document ID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "rid-attch",
-          "description" : "The Attachment ID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "User-Agent",
-          "type" : "string",
-          "in" : "header",
-          "required" : false
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The operation was successful",
-            "schema" : {
-              "$ref" : "#/definitions/AttachmentRaw"
-            }
-          },
-          "400" : {
-            "description" : "The JSON body is invalid. Check for missing curly brackets or quotes"
-          },
-          "401" : {
-            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
-          },
-          "403" : {
-            "description" : "The authorization token has expired. 403 is also returned by this operation when the number of permissions in the account has reached its allowable quota"
-          },
-          "409" : {
-            "description" : "The id or Slug provided for the new attachment has been taken by an existing attachment."
-          },
-          "413" : {
-            "description" : "The document size in the request exceeded the allowable document size in a request, which is 512k"
-          }
-        }
-      }
-    },
     "/{rid-db}/colls/{rid-coll}/docs/{rid-doc}/attachments" : {
       "post" : {
         "tags" : [ "Attachment" ],
@@ -743,20 +1104,20 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-doc",
-          "description" : "The Document ID",
           "in" : "path",
+          "description" : "The Document ID",
           "required" : true,
           "type" : "string"
         }, {
@@ -768,9 +1129,9 @@
           }
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -797,44 +1158,94 @@
         }
       }
     },
-    "/{rid-db}/colls/{rid-coll}/sprocs" : {
-      "post" : {
-        "tags" : [ "StoredProcedure" ],
-        "summary" : "Create a Stored Procedure",
-        "description" : "**Create a Stored Procedure**\n  \n - A stored procedure is a piece of application logic written in JavaScript that is registered and executed against a collection as a single transaction.\n \n - In DocumentDB, JavaScript is hosted in the same memory space as the database. Hence, requests made within stored procedures execute in the same scope of a database session. This enables DocumentDB to guarantee ACID for all operations that are part of a single stored procedure.\n \n - The stored procedure resource is represented by sprocs in the [DocumentDB resource model](http://azure.microsoft.com/documentation/articles/documentdb-resources/).\n \n - The stored procedure resource has a fixed schema. ** The body property contains the application logic **",
-        "operationId" : "CreateStoredProcedure",
+    "/{rid-db}/colls/{rid-coll}/docs/{rid-doc}/attachments/{rid-attch}" : {
+      "get" : {
+        "tags" : [ "Attachment" ],
+        "summary" : "Get an Attachment",
+        "description" : "**Get an Attachment from a document**",
+        "operationId" : "GetAttachement",
         "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "produces" : [ "application/json", "image/jpeg", "application/dicom" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "Request",
-          "in" : "body",
+          "name" : "rid-doc",
+          "in" : "path",
+          "description" : "The Document ID",
           "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/QueryRequest"
-          }
+          "type" : "string"
+        }, {
+          "name" : "rid-attch",
+          "in" : "path",
+          "description" : "The Attachment ID",
+          "required" : true,
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful",
+            "schema" : {
+              "$ref" : "#/definitions/AttachmentRaw"
+            }
+          },
+          "400" : {
+            "description" : "The JSON body is invalid. Check for missing curly brackets or quotes"
+          },
+          "401" : {
+            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
+          },
+          "403" : {
+            "description" : "The authorization token has expired. 403 is also returned by this operation when the number of permissions in the account has reached its allowable quota"
+          },
+          "409" : {
+            "description" : "The id or Slug provided for the new attachment has been taken by an existing attachment."
+          },
+          "413" : {
+            "description" : "The document size in the request exceeded the allowable document size in a request, which is 512k"
+          }
+        }
+      }
+    },
+    "/{rid-db}/colls/{rid-coll}/sprocs" : {
+      "get" : {
+        "tags" : [ "StoredProcedure" ],
+        "summary" : "List Stored Procedures",
+        "description" : "Performing a GET on the stored procedures resource of a particular database, i.e. the sprocs URI path, returns a list of the stored procedures in the collection",
+        "operationId" : "ListStoredProcedures",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "rid-db",
+          "in" : "path",
+          "description" : "The Database Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "rid-coll",
+          "in" : "path",
+          "description" : "The Collection ID",
+          "required" : true,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
             "description" : "OK",
             "schema" : {
-              "$ref" : "#/definitions/StoredProcedure"
+              "$ref" : "#/definitions/StoredProcedureList"
             }
           },
           "400" : {
@@ -851,30 +1262,43 @@
           }
         }
       },
-      "get" : {
+      "post" : {
         "tags" : [ "StoredProcedure" ],
-        "summary" : "List Stored Procedures",
-        "description" : "Performing a GET on the stored procedures resource of a particular database, i.e. the sprocs URI path, returns a list of the stored procedures in the collection",
-        "operationId" : "ListStoredProcedures",
+        "summary" : "Create a Stored Procedure",
+        "description" : "**Create a Stored Procedure**\n  \n - A stored procedure is a piece of application logic written in JavaScript that is registered and executed against a collection as a single transaction.\n \n - In DocumentDB, JavaScript is hosted in the same memory space as the database. Hence, requests made within stored procedures execute in the same scope of a database session. This enables DocumentDB to guarantee ACID for all operations that are part of a single stored procedure.\n \n - The stored procedure resource is represented by sprocs in the [DocumentDB resource model](http://azure.microsoft.com/documentation/articles/documentdb-resources/).\n \n - The stored procedure resource has a fixed schema. ** The body property contains the application logic **",
+        "operationId" : "CreateStoredProcedure",
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "Request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/QueryRequest"
+          }
+        }, {
+          "name" : "User-Agent",
+          "in" : "header",
+          "required" : false,
           "type" : "string"
         } ],
         "responses" : {
           "200" : {
             "description" : "OK",
             "schema" : {
-              "$ref" : "#/definitions/StoredProcedureList"
+              "$ref" : "#/definitions/StoredProcedure"
             }
           },
           "400" : {
@@ -902,53 +1326,53 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-proc",
-          "description" : "The Procedure ID",
           "in" : "path",
+          "description" : "The Procedure ID",
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "Request",
           "in" : "body",
+          "name" : "Request",
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/QueryRequest"
           }
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Required. The Content-Type header must be application/json.",
           "required" : true,
-          "default" : "application/query+json",
-          "description" : "Required. The Content-Type header must be application/json."
+          "type" : "string",
+          "default" : "application/query+json"
         }, {
           "name" : "x-ms-documentdb-query-enable-scan",
-          "type" : "boolean",
           "in" : "header",
           "required" : true,
+          "type" : "boolean",
           "default" : true
         }, {
           "name" : "x-ms-documentdb-isquery",
-          "type" : "boolean",
           "in" : "header",
           "required" : true,
+          "type" : "boolean",
           "default" : true
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -971,36 +1395,36 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-proc",
-          "description" : "The Procedure ID",
           "in" : "path",
+          "description" : "The Procedure ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "required" : false,
+          "type" : "string"
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
           "required" : true,
+          "type" : "string",
           "default" : "application/json"
         }, {
-          "name" : "Request",
           "in" : "body",
+          "name" : "Request",
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/QueryRequest"
@@ -1034,20 +1458,20 @@
         "operationId" : "DeleteStoredProcedure",
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-proc",
-          "description" : "The Procedure ID",
           "in" : "path",
+          "description" : "The Procedure ID",
           "required" : true,
           "type" : "string"
         } ],
@@ -1071,34 +1495,34 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Required. The Content-Type header must be application/json.",
           "required" : true,
-          "default" : "application/query+json",
-          "description" : "Required. The Content-Type header must be application/json."
+          "type" : "string",
+          "default" : "application/query+json"
         }, {
           "name" : "x-ms-documentdb-query-enable-scan",
-          "type" : "boolean",
           "in" : "header",
           "required" : true,
+          "type" : "boolean",
           "default" : true
         }, {
           "name" : "x-ms-documentdb-isquery",
-          "type" : "boolean",
           "in" : "header",
           "required" : true,
+          "type" : "boolean",
           "default" : true
         }, {
           "in" : "body",
@@ -1109,10 +1533,10 @@
           }
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>>{user agent name}/{version}</c>.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>>{user agent name}/{version}</c>."
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1146,14 +1570,14 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-coll",
-          "description" : "The Collection ID",
           "in" : "path",
+          "description" : "The Collection ID",
           "required" : true,
           "type" : "string"
         }, {
@@ -1165,29 +1589,29 @@
           }
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Required. The Content-Type header must be application/json.",
           "required" : true,
-          "default" : "application/query+json",
-          "description" : "Required. The Content-Type header must be application/json."
+          "type" : "string",
+          "default" : "application/query+json"
         }, {
           "name" : "x-ms-documentdb-query-enable-scan",
-          "type" : "boolean",
           "in" : "header",
           "required" : true,
+          "type" : "boolean",
           "default" : true
         }, {
           "name" : "x-ms-documentdb-isquery",
-          "type" : "boolean",
           "in" : "header",
           "required" : true,
+          "type" : "boolean",
           "default" : true
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>."
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1221,22 +1645,22 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
           "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>."
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1265,8 +1689,8 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
@@ -1278,16 +1702,16 @@
           }
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
           "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "description" : "Optional. The string of client user agent performing the request..",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "description" : "Optional. The string of client user agent performing the request..",
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "201" : {
@@ -1327,22 +1751,22 @@
           "type" : "string"
         }, {
           "name" : "rid-user",
-          "description" : "The User ID",
           "in" : "path",
+          "description" : "The User ID",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
           "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>."
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1377,8 +1801,8 @@
           "type" : "string"
         }, {
           "name" : "rid-user",
-          "description" : "The User Id",
           "in" : "path",
+          "description" : "The User Id",
           "required" : true,
           "type" : "string"
         }, {
@@ -1390,16 +1814,16 @@
           }
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
           "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>."
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1437,28 +1861,28 @@
           "type" : "string"
         }, {
           "name" : "rid-user",
-          "description" : "The User Id",
           "in" : "path",
+          "description" : "The User Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "Authorization",
-          "type" : "string",
           "in" : "header",
           "description" : "The authentication type and signature token. Both master key and resource tokens are allowed for this operation. example: type={typeoftoken}&ver={tokenversion}&sig={hashsignature}",
-          "required" : true
+          "required" : true,
+          "type" : "string"
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
           "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>.",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>."
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1483,42 +1907,42 @@
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "rid-db",
-          "description" : "The Database Id",
           "in" : "path",
+          "description" : "The Database Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "rid-user",
-          "description" : "The User Id",
           "in" : "path",
+          "description" : "The User Id",
           "required" : true,
           "type" : "string"
         }, {
+          "in" : "body",
           "name" : "Request",
           "description" : "The Request Body",
-          "in" : "body",
+          "required" : true,
           "schema" : {
             "$ref" : "#/definitions/QueryRequest"
-          },
-          "required" : true
+          }
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Required. The Content-Type header must be application/json.",
           "required" : true,
-          "default" : "application/query+json",
-          "description" : "Required. The Content-Type header must be application/json."
+          "type" : "string",
+          "default" : "application/query+json"
         }, {
           "name" : "x-ms-documentdb-query-enable-scan",
-          "type" : "boolean",
           "in" : "header",
           "required" : true,
+          "type" : "boolean",
           "default" : true
         }, {
           "name" : "x-ms-documentdb-isquery",
-          "type" : "boolean",
           "in" : "header",
           "required" : true,
+          "type" : "boolean",
           "default" : true
         } ],
         "responses" : {
@@ -1559,10 +1983,10 @@
           "type" : "string"
         }, {
           "name" : "rid-user",
-          "description" : "The User Id",
           "in" : "path",
-          "type" : "string",
-          "required" : true
+          "description" : "The User Id",
+          "required" : true,
+          "type" : "string"
         }, {
           "name" : "rid-perm",
           "in" : "path",
@@ -1571,16 +1995,16 @@
           "type" : "string"
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
           "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is {user agent name}/{version}.",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is {user agent name}/{version}.",
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1621,8 +2045,8 @@
           "type" : "string"
         }, {
           "name" : "rid-user",
-          "description" : "The User Id",
           "in" : "path",
+          "description" : "The User Id",
           "required" : true,
           "type" : "string"
         }, {
@@ -1632,23 +2056,23 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "Request",
           "in" : "body",
+          "name" : "Request",
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/Permission"
           }
         }, {
           "name" : "Content-Type",
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
-          "type" : "string",
           "in" : "header",
-          "required" : false
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
+          "required" : false,
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
-          "required" : true
+          "required" : true,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1695,22 +2119,22 @@
           "type" : "string"
         }, {
           "name" : "rid-user",
-          "description" : "The User Id",
           "in" : "path",
+          "description" : "The User Id",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "Content-Type",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. For creating a database, the Content-Type header must be application/json.",
           "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
+          "type" : "string"
         }, {
           "name" : "User-Agent",
-          "type" : "string",
           "in" : "header",
+          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>",
           "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>"
+          "type" : "string"
         } ],
         "responses" : {
           "204" : {
@@ -1724,430 +2148,6 @@
           },
           "404" : {
             "description" : "The permission to be deleted is no longer a resource, i.e. the permission was deleted"
-          }
-        }
-      }
-    },
-    "/{databaseaccount}.documents.azure.com/offers" : {
-      "get" : {
-        "tags" : [ "Offer" ],
-        "operationId" : "GetListOfOffers",
-        "summary" : "Get List of Offers",
-        "consumes" : [ ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "databaseaccount",
-          "description" : "The Database Account Name",
-          "type" : "string",
-          "in" : "path",
-          "required" : true
-        }, {
-          "name" : "Content-Type",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
-        }, {
-          "name" : "User-Agent",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. The string of client user agent performing the request."
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Offer"
-              }
-            }
-          },
-          "401" : {
-            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
-          },
-          "403" : {
-            "description" : "The authorization token expired."
-          }
-        }
-      },
-      "post" : {
-        "tags" : [ "Offer" ],
-        "operationId" : "QueryOffer",
-        "summary" : "Query an Offer",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "databaseaccount",
-          "description" : "The Database Account Name",
-          "type" : "string",
-          "in" : "path",
-          "required" : true
-        }, {
-          "in" : "body",
-          "name" : "Request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/QuerySql"
-          }
-        }, {
-          "name" : "User-Agent",
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>.",
-          "type" : "string",
-          "in" : "header",
-          "required" : false
-        }, {
-          "name" : "Content-Type",
-          "type" : "string",
-          "in" : "header",
-          "required" : true,
-          "default" : "application/query+json",
-          "description" : "Required. The Content-Type header must be application/json."
-        }, {
-          "name" : "x-ms-documentdb-query-enable-scan",
-          "type" : "boolean",
-          "in" : "header",
-          "required" : true,
-          "default" : true
-        }, {
-          "name" : "x-ms-documentdb-isquery",
-          "type" : "boolean",
-          "in" : "header",
-          "required" : true,
-          "default" : true
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The operation was successful",
-            "schema" : {
-              "$ref" : "#/definitions/QueryResponseBody"
-            }
-          },
-          "400" : {
-            "description" : "The JSON body is invalid. Check for missing curly brackets or quotes."
-          },
-          "401" : {
-            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
-          },
-          "403" : {
-            "description" : "The authorization token has expired."
-          },
-          "404" : {
-            "description" : "The offer is no longer a resource."
-          }
-        }
-      }
-    },
-    "/offers/{rid-offer}" : {
-      "put" : {
-        "tags" : [ "Offer" ],
-        "operationId" : "ReplaceOffer",
-        "summary" : "Replace an Offer",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "rid-offer",
-          "description" : "The Offer Id",
-          "in" : "path",
-          "type" : "string",
-          "required" : true
-        }, {
-          "in" : "body",
-          "name" : "Request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/ReplaceOffer"
-          }
-        }, {
-          "name" : "Content-Type",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
-        }, {
-          "name" : "User-Agent",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>."
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The replace operation was successful",
-            "schema" : {
-              "$ref" : "#/definitions/Offer"
-            }
-          },
-          "400" : {
-            "description" : "The override set in the x-ms-consistency-level header is stronger than the one set during account creation."
-          },
-          "401" : {
-            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
-          },
-          "403" : {
-            "description" : "The authorization token has expired."
-          },
-          "404" : {
-            "description" : "The offer is no longer a resource."
-          }
-        }
-      },
-      "get" : {
-        "tags" : [ "Offer" ],
-        "operationId" : "GetOffer",
-        "summary" : "GetOfferById",
-        "consumes" : [ ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "rid-offer",
-          "description" : "The Offer Id",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "Content-Type",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. For creating a database, the Content-Type header must be application/json."
-        }, {
-          "name" : "User-Agent",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. The string of client user agent performing the request. The recommended format is <c>{user agent name}/{version}</c>."
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The operation was successful",
-            "schema" : {
-              "$ref" : "#/definitions/Offer"
-            }
-          },
-          "400" : {
-            "description" : "The JSON body is invalid. Check for missing curly brackets or quotes."
-          },
-          "401" : {
-            "description" : "The Authorization or x-ms-date header is not set. 401 is also returned when the Authorization header is set to an invalid authorization token"
-          },
-          "403" : {
-            "description" : "The authorization token has expired."
-          },
-          "404" : {
-            "description" : "The offer is no longer a resource."
-          }
-        }
-      }
-    },
-    "/{rid-db}/colls/{rid-coll}/doc" : {
-      "post" : {
-        "tags" : [ "Resource" ],
-        "operationId" : "QueryDocumentResource",
-        "summary" : "Perform a Document query",
-        "description" : "- Execute a POST method against a resource path using JSON with the \"query\" property set to the SQL query string, and the \"parameters\" property set to the array of optional parameter values.\n- Set the x-ms-documentdb-isquery header to true.\n- Set the Content-Type header to application/query+json.\n- [DocumentDB SQL query cheat sheet](https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query-cheat-sheet/)",
-        "consumes" : [ "application/query+json", "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "rid-db",
-          "description" : "The Database Id",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "rid-coll",
-          "description" : "The Collection ID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "Request",
-          "description" : "The Query Body",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/QueryRequest"
-          }
-        }, {
-          "name" : "User-Agent",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. The string of client user agent performing the request."
-        }, {
-          "name" : "x-ms-date",
-          "type" : "string",
-          "in" : "header",
-          "required" : true,
-          "description" : "The date of the request The date is expressed in Coordinated Universal Time format. <example>Fri, 08 Apr 2015 03:52:31 GMT</example>"
-        }, {
-          "name" : "Content-Type",
-          "type" : "string",
-          "required" : true,
-          "in" : "header",
-          "description" : "Must be set to application/query+json",
-          "default" : "application/query+json"
-        }, {
-          "name" : "x-ms-documentdb-isquery",
-          "type" : "boolean",
-          "in" : "header",
-          "default" : true,
-          "required" : true,
-          "description" : "This property must be set to true"
-        }, {
-          "name" : "x-ms-max-item-count",
-          "type" : "string",
-          "required" : false,
-          "in" : "header",
-          "description" : "To page through a result set, set this header to the maximum number for items to be returned back in a single page. <remarks>Range 1 - 1000 Default value = 100</remarks>"
-        }, {
-          "name" : "x-ms-continuation",
-          "type" : "string",
-          "required" : false,
-          "in" : "header",
-          "description" : "To navigate to the next page of items, set this header to the continuation token for the next page."
-        }, {
-          "name" : "x-ms-documentdb-query-enable-scan",
-          "type" : "boolean",
-          "in" : "header",
-          "required" : false,
-          "default" : false,
-          "description" : "Use an index scan to process the query if the right index path of type is not available."
-        }, {
-          "name" : "x-ms-session-token",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "The session token for the request. Used for session consistency"
-        }, {
-          "name" : "Accept",
-          "type" : "string",
-          "default" : "application/json",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. At the moment, DocumentDB always returns the response payload in standard JSON format. The client must be able to accept the response body in standard JSON format"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "schema" : {
-              "$ref" : "#/definitions/QueryResourceResponseBody"
-            }
-          },
-          "400" : {
-            "description" : "The override set in the x-ms-consistency-level header is stronger than the one set during account creation."
-          },
-          "401" : {
-            "description" : "The Authorization or x-ms-date header is not set. <c>401</c> is also returned when the Authorization header is set to an invalid authorization token"
-          },
-          "403" : {
-            "description" : "The authorization token expired."
-          },
-          "404" : {
-            "description" : "The document is no longer a resource, i.e. the resource was deleted."
-          }
-        }
-      }
-    },
-    "/{rid-db}/colls/{rid-coll}/" : {
-      "post" : {
-        "tags" : [ "Resource" ],
-        "operationId" : "QueryCollectionResource",
-        "summary" : "Perform a query on a Collection Resource",
-        "description" : "- Execute a POST method against a resource path using JSON with the \"query\" property set to the SQL query string, and the \"parameters\" property set to the array of optional parameter values.\n- Set the x-ms-documentdb-isquery header to true.\n- Set the Content-Type header to application/query+json.\n- [DocumentDB SQL query cheat sheet](https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query-cheat-sheet/)",
-        "consumes" : [ "application/query+json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "rid-db",
-          "description" : "The Database Id",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "rid-coll",
-          "description" : "The Collection ID",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "Request",
-          "required" : true,
-          "description" : "The Query Body",
-          "schema" : {
-            "$ref" : "#/definitions/QueryRequest"
-          }
-        }, {
-          "name" : "User-Agent",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. The string of client user agent performing the request."
-        }, {
-          "name" : "Content-Type",
-          "type" : "string",
-          "required" : true,
-          "in" : "header",
-          "description" : "Must be set to application/query+json",
-          "default" : "application/query+json"
-        }, {
-          "name" : "x-ms-documentdb-isquery",
-          "type" : "boolean",
-          "in" : "header",
-          "default" : true,
-          "required" : true,
-          "description" : "This property must be set to true"
-        }, {
-          "name" : "x-ms-max-item-count",
-          "type" : "string",
-          "required" : false,
-          "in" : "header",
-          "description" : "To page through a result set, set this header to the maximum number for items to be returned back in a single page. <remarks>Range 1 - 1000 Default value = 100</remarks>"
-        }, {
-          "name" : "x-ms-continuation",
-          "type" : "string",
-          "required" : false,
-          "in" : "header",
-          "description" : "To navigate to the next page of items, set this header to the continuation token for the next page."
-        }, {
-          "name" : "x-ms-documentdb-query-enable-scan",
-          "type" : "boolean",
-          "in" : "header",
-          "required" : false,
-          "default" : false,
-          "description" : "Use an index scan to process the query if the right index path of type is not available."
-        }, {
-          "name" : "x-ms-session-token",
-          "type" : "string",
-          "in" : "header",
-          "required" : false,
-          "description" : "The session token for the request. Used for session consistency"
-        }, {
-          "name" : "Accept",
-          "type" : "string",
-          "default" : "application/json",
-          "in" : "header",
-          "required" : false,
-          "description" : "Optional. At the moment, DocumentDB always returns the response payload in standard JSON format. The client must be able to accept the response body in standard JSON format"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "schema" : {
-              "$ref" : "#/definitions/QueryResourceResponseBody"
-            }
-          },
-          "400" : {
-            "description" : "The override set in the x-ms-consistency-level header is stronger than the one set during account creation."
-          },
-          "401" : {
-            "description" : "The Authorization or x-ms-date header is not set. <c>401</c> is also returned when the Authorization header is set to an invalid authorization token"
-          },
-          "403" : {
-            "description" : "The authorization token expired."
-          },
-          "404" : {
-            "description" : "The document is no longer a resource, i.e. the resource was deleted."
           }
         }
       }
@@ -2225,7 +2225,6 @@
       "description" : "A user is a logical namespace for scoping permissions."
     },
     "Collection" : {
-      "description" : "A collection is a container of JSON documents and associated JavaScript application logic, i.e. stored procedures, triggers and user-defined functions",
       "required" : [ "_conflicts", "_doc", "_etag", "_rid", "_self", "_sprocs", "_triggers", "_ts", "_udfs", "id" ],
       "properties" : {
         "id" : {
@@ -2271,7 +2270,8 @@
         "indexingPolicy" : {
           "$ref" : "#/definitions/IndexingPolicy"
         }
-      }
+      },
+      "description" : "A collection is a container of JSON documents and associated JavaScript application logic, i.e. stored procedures, triggers and user-defined functions"
     },
     "Document" : {
       "required" : [ "id" ],
@@ -2452,7 +2452,7 @@
       }
     },
     "QueryRequest" : {
-      "required" : [ "parameters", "QueryString" ],
+      "required" : [ "QueryString", "parameters" ],
       "properties" : {
         "QueryString" : {
           "type" : "string",
@@ -2577,7 +2577,7 @@
       "description" : "The array containing the document paths to be excluded from indexing."
     },
     "StoredProcedure" : {
-      "required" : [ "id", "body" ],
+      "required" : [ "body", "id" ],
       "properties" : {
         "id" : {
           "type" : "string"
@@ -2614,7 +2614,6 @@
           "format" : "int32"
         },
         "StoredProcedures" : {
-          "type" : "array",
           "$ref" : "#/definitions/StoredProcedure"
         }
       }
@@ -2628,28 +2627,27 @@
       }
     },
     "CustomBodyCollection" : {
-      "example" : "{\"id\":\"Labs\"}",
       "required" : [ "id" ],
       "properties" : {
         "id" : {
           "type" : "string",
           "description" : "A JSON array of parameters specified as name value pairs."
         }
-      }
+      },
+      "example" : "{\"id\":\"Labs\"}"
     },
     "QuerySql" : {
       "required" : [ "query" ],
       "properties" : {
         "query" : {
           "type" : "string",
-          "description" : "The value of this property the SQL statement to be executed. [DocumentDB SQL query cheat sheet] (https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query-cheat-sheet/)",
-          "example" : "{“query”:”select * from offer where offer.offerType =’S2’”}"
+          "example" : "{“query”:”select * from offer where offer.offerType =’S2’”}",
+          "description" : "The value of this property the SQL statement to be executed. [DocumentDB SQL query cheat sheet] (https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query-cheat-sheet/)"
         }
       }
     },
     "ReplaceOffer" : {
-      "example" : "{\"offerType\":\"S2\",\"resource\":\"dbs/pLJdAA==/colls/pLJdAJm+yQE=/\",\"offerResourceId\":\"pLJdAJm+yQE=\",\"id\":\" tAK6\",\"_rid\":\"tAK6\"}",
-      "required" : [ "offerType", "resource", "offerResourceId", "id", "_rid" ],
+      "required" : [ "_rid", "id", "offerResourceId", "offerType", "resource" ],
       "properties" : {
         "offerType" : {
           "type" : "string",
@@ -2671,7 +2669,8 @@
           "type" : "string",
           "description" : "This is the resource id of the offer."
         }
-      }
+      },
+      "example" : "{\"offerType\":\"S2\",\"resource\":\"dbs/pLJdAA==/colls/pLJdAJm+yQE=/\",\"offerResourceId\":\"pLJdAJm+yQE=\",\"id\":\" tAK6\",\"_rid\":\"tAK6\"}"
     },
     "QueryResourceResponseBody" : {
       "properties" : {
@@ -2690,8 +2689,8 @@
         },
         "Date" : {
           "type" : "string",
-          "description" : "The date of the request The date is expressed in Coordinated Universal Time format.",
-          "example" : "<example>Fri, 08 Apr 2015 03:52:31 GMT</example>"
+          "example" : "<example>Fri, 08 Apr 2015 03:52:31 GMT</example>",
+          "description" : "The date of the request The date is expressed in Coordinated Universal Time format."
         },
         "x-ms-item-count" : {
           "type" : "integer",
@@ -2723,5 +2722,6 @@
         "_count" : 10
       }
     }
-  }
+  },
+  "x-azure-api-id" : "564a80bc1ee3b805c7030003"
 }
