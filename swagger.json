@@ -1700,12 +1700,6 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "Authorization",
-          "type" : "string",
-          "in" : "header",
-          "description" : "The authentication type and signature token. Both master key and resource tokens are allowed for this operation. type={typeoftoken}&ver={tokenversion}&sig={hashsignature}",
-          "required" : true
-        }, {
           "name" : "Content-Type",
           "type" : "string",
           "in" : "header",
@@ -1911,12 +1905,6 @@
           "in" : "path",
           "required" : true,
           "type" : "string"
-        }, {
-          "name" : "Authorization",
-          "type" : "string",
-          "in" : "header",
-          "description" : "The authentication type and signature token. Both master key and resource tokens are allowed for this operation. example: <c>type={typeoftoken}%26ver={tokenversion}%26sig={hashsignature}</c>",
-          "required" : true
         }, {
           "name" : "Content-Type",
           "type" : "string",
