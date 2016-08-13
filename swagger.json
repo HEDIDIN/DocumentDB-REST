@@ -2243,6 +2243,7 @@
       "description" : "A user is a logical namespace for scoping permissions."
     },
     "Collection" : {
+      "description" : "A collection is a container of JSON documents and associated JavaScript application logic, i.e. stored procedures, triggers and user-defined functions",
       "required" : [ "_conflicts", "_doc", "_etag", "_rid", "_self", "_sprocs", "_triggers", "_ts", "_udfs", "id" ],
       "properties" : {
         "id" : {
@@ -2289,8 +2290,7 @@
           "description" : "This is the indexing policy setting for the collection. All properties in the indexingPolicy are user settable.",
           "$ref" : "#/definitions/IndexingPolicy"
         }
-      },
-      "description" : "A collection is a container of JSON documents and associated JavaScript application logic, i.e. stored procedures, triggers and user-defined functions"
+      }
     },
     "Document" : {
       "required" : [ "id" ],
