@@ -2287,7 +2287,6 @@
           "description" : "This is a system generated property that specifies the addressable path of the conflicts resource. During an operation on a resource within a collection, if a conflict occurs, users can inspect the conflicting resources by performing a GET on the conflicts URI path."
         },
         "indexingPolicy" : {
-          "description" : "This is the indexing policy setting for the collection. All properties in the indexingPolicy are user settable.",
           "$ref" : "#/definitions/IndexingPolicy"
         }
       }
@@ -2432,7 +2431,6 @@
           "description" : "The accepted value is a valid document path including wildcards value of ? and *."
         },
         "ExcludePaths" : {
-          "description" : "The array containing the document paths to be excluded from indexing. All properties are user settable.",
           "$ref" : "#/definitions/ExcludePaths"
         }
       },
