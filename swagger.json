@@ -12,7 +12,7 @@
       "url" : "https://github.com/HEDIDIN/DocumentDB-REST/blob/master/LICENSE",
       "name" : "Howard S. Edidin"
     },
-    "description" : "Azure API Connection for DocumentDB"
+    "description" : "Azure API Connector for DocumentDB"
   },
   "host" : "[databaseaccount].documents.azure.com:443",
   "basePath" : "/dbs",
